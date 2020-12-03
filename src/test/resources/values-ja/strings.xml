@@ -1,0 +1,14 @@
+<resources>
+  <string name="app_name" translatable="false">Mixin</string>
+  <string name="confirm">確認</string>
+  <string name="change">変更</string>
+  <string name="common_continue">進む</string>
+  <string name="name">名前</string>
+  <string name="error_withdrawal_memo_format_incorrect">エラー %1$d: 出金メモの形式が正しくありません。</string>
+  <string name="error_favorite_limit">エラー %1$d: 数が上限に達しています。</string>
+  <string name="error_retry_upload">アップロードの再試行に失敗しました。</string>
+  <string name="error_not_supported_audio_format">サポートされていないオーディオ形式です。他のアプリで開いてください。</string>
+  <string name="landing_invitation_dialog_content">4桁のコードを電話番号%1$sに送信します。次の画面でコードを入力してください。</string>
+  <string name="landing_introduction">\"Agree &amp; Continue\"をタップして%1$sと%2$sを受諾してください。</string>
+  <string name="landing_agree">&amp;に同意して進む</string>
+</resources>

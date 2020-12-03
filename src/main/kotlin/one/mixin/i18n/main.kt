@@ -9,7 +9,7 @@ import com.github.ajalt.clikt.parameters.options.required
 
 fun main(vararg args: String) {
   NoOpCliktCommand(name = "mi18n")
-    .subcommands(GenerateCommand(), ViewCommand())
+    .subcommands(GenerateCommand(), ReadCommand(), ViewCommand())
     .main(args)
 }
 
@@ -43,6 +43,23 @@ private class GenerateCommand : CliktCommand(
       }
       generator.generate(parseResult, output)
     }
+  }
+}
+
+private class ReadCommand : CliktCommand(
+  name = "read",
+  help = "Read i18n strings from specify platform"
+) {
+  private val inputFile by option("-i", "--input")
+    .required()
+    .help("Xlsx file only now, sqlite database file will be supported in future")
+
+  private val output by option("-o", "--output")
+    .help("Specify a directory to save the generated result")
+
+  override fun run() {
+    val reader = AndroidReader()
+    reader.read(inputFile, output)
   }
 }
 

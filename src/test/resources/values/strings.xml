@@ -1,0 +1,29 @@
+<resources>
+  <string name="app_name" translatable="false">Mixin</string>
+  <string name="confirm">Confirm</string>
+  <string name="change">Change</string>
+  <string name="common_continue">Continue</string>
+  <string name="name">Name</string>
+  <string name="cancel">Cancel</string>
+  <string name="error_invalid_code_too_frequent">ERROR %1$d: Send verification code too frequent, please try again later.</string>
+  <string name="error_invalid_emergency_contact">ERROR %1$d: Invalid emergency contact</string>
+  <string name="error_withdrawal_memo_format_incorrect">ERROR %1$d: Withdrawal memo format incorrect.</string>
+  <string name="error_favorite_limit">ERROR %1$d: The number has reached the limit.</string>
+  <string name="error_retry_upload">Retry upload failed.</string>
+  <string name="error_not_supported_audio_format">Not supported audio format, please open by other app.</string>
+  <string name="landing_back_content_desc" translatable="false">Landing back</string>
+  <string name="landing_enter_mobile_number">Enter your mobile number</string>
+  <string name="landing_enter_new_mobile_number">Enter your new mobile number</string>
+  <string name="landing_enter_mobile_hint">Mobile number</string>
+  <string name="landing_enter_name_hint">Name</string>
+  <string name="landing_enter_mobile_tip">We will never display your mobile number publicly.</string>
+  <string name="landing_resend_code_enable">Resend code</string>
+  <string name="landing_resend_code_disable">Resend code in %1$d s</string>
+  <string name="landing_validation_title">Enter the 4-digit code send to you at %1$s</string>
+  <string name="landing_validation_error">The code you\'re entered is incorrect.</string>
+  <string name="landing_enter_name_title">What\'s your name?</string>
+  <string name="landing_invitation_dialog_content">We will send a 4-digit code to your phone number %1$s, please enter the code in next screen.</string>
+  <string name="landing_introduction">Tap \"Agree &amp; Continue\" to accept  the %1$s and %2$s</string>
+  <string name="landing_agree">Agree &amp; Continue</string>
+  <string name="landing_privacy_policy">Privacy Policy</string>
+</resources>

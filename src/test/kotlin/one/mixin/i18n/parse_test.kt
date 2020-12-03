@@ -6,6 +6,6 @@ class ParseTest {
 
   @Test
   fun `test parse xlsx file`() {
-    XLSXParser().parse("src/test/example.xlsx")
+    XLSXParser().parse("src/test/resources/example.xlsx")
   }
 }

@@ -64,7 +64,7 @@ class XLSXParser : Parser {
         "中文" -> "zh"
         "日文" -> "ja"
         "英文" -> "en"
-        else -> ""
+        else -> l
       }
     }
     return langList

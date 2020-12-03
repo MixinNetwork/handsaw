@@ -3,6 +3,7 @@ build
 .gradle
 /reports
 /output
+.DS_Store
 
 # IntelliJ
 .idea
