@@ -7,7 +7,6 @@ interface Parser {
 }
 
 class XLSXParser : Parser {
-
   override fun parse(fileName: String): ParseResult? {
     val sheet = readFromXLSXFile(fileName)
 
@@ -37,11 +36,13 @@ class XLSXParser : Parser {
         if (c == firstCol) return@colLoop
 
         val cellValue = c.stringCellValue
-        rowList.add(if (cellValue.isNullOrBlank()) {
-          ""
-        } else {
-          cellValue
-        })
+        rowList.add(
+          if (cellValue.isNullOrBlank()) {
+            ""
+          } else {
+            cellValue
+          }
+        )
       }
       dataList[firstColString] = rowList
     }
@@ -57,10 +58,10 @@ class XLSXParser : Parser {
   private fun name2ISO(langList: MutableList<String>): MutableList<String> {
     langList.forEachIndexed { i, l ->
       langList[i] = when (l) {
-          "中文" -> "zh"
-          "日文" -> "ja"
-          "英文" -> "en"
-         else -> ""
+        "中文" -> "zh"
+        "日文" -> "ja"
+        "英文" -> "en"
+        else -> ""
       }
     }
     return langList
@@ -68,6 +69,6 @@ class XLSXParser : Parser {
 }
 
 data class ParseResult(
-    val langList: List<String>,
-    val dataList: Map<String, List<String>>
+  val langList: List<String>,
+  val dataList: Map<String, List<String>>
 )
