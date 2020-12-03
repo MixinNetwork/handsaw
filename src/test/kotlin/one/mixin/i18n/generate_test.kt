@@ -1,4 +1,5 @@
-import org.junit.Assert.fail
+package one.mixin.i18n
+
 import org.junit.Test
 
 class ConverterTest {
@@ -7,10 +8,6 @@ class ConverterTest {
   fun `test generate`() {
     val parser = XLSXParser()
     val parseResult = parser.parse("src/test/example.xlsx")
-    if (parseResult == null) {
-      fail()
-      return
-    }
 
     val androidGenerator = AndroidGenerator()
     androidGenerator.generate(parseResult)

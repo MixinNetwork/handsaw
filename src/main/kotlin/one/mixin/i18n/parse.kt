@@ -1,3 +1,6 @@
+package one.mixin.i18n
+
+import com.github.ajalt.clikt.core.InvalidFileFormat
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import java.io.FileInputStream
@@ -7,13 +10,13 @@ interface Parser {
 }
 
 class XLSXParser : Parser {
-  override fun parse(fileName: String): ParseResult? {
+  override fun parse(fileName: String): ParseResult {
     val sheet = readFromXLSXFile(fileName)
 
     var langList = mutableListOf<String>()
     val dataList = mutableMapOf<String, List<String>>()
 
-    val firstRow = sheet.getRow(0) ?: return null
+    val firstRow = sheet.getRow(0) ?: throw InvalidFileFormat(fileName, "The xlsx file has no row")
     val langCol = mutableListOf<Int>()
     firstRow.cellIterator().forEach { c ->
       val cellValue = c.stringCellValue

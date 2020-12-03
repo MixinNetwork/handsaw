@@ -1,15 +1,23 @@
+package one.mixin.i18n
+
 import java.io.File
 
 interface Generator {
-  fun generate(parseResult: ParseResult)
+  fun generate(parseResult: ParseResult, outputFile: String?)
 }
+
+val allGenerators = listOf(AndroidGenerator(), IOSGenerator())
 
 val ANDROID_PLACE_HOLDER = "%[\\d]+[\$][d|s]".toRegex()
 val IOS_PLACE_HOLDER = "%[\\d]+[\$][@]".toRegex()
 
 class AndroidGenerator : Generator {
-  override fun generate(parseResult: ParseResult) {
-    val path = System.getProperty("user.dir")
+  override fun generate(parseResult: ParseResult, outputFile: String?) {
+    val path = if (outputFile.isNullOrBlank()) {
+      System.getProperty("user.dir")
+    } else {
+      outputFile
+    }
     val outDir = File("$path${File.separator}output${File.separator}Android")
     if (outDir.exists()) {
       outDir.delete()
@@ -66,8 +74,12 @@ class AndroidGenerator : Generator {
 }
 
 class IOSGenerator : Generator {
-  override fun generate(parseResult: ParseResult) {
-    val path = System.getProperty("user.dir")
+  override fun generate(parseResult: ParseResult, outputFile: String?) {
+    val path = if (outputFile.isNullOrBlank()) {
+      System.getProperty("user.dir")
+    } else {
+      outputFile
+    }
     val outDir = File("$path${File.separator}output${File.separator}iOS")
     if (outDir.exists()) {
       outDir.delete()
