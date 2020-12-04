@@ -1,3 +1,2 @@
 
-rootProject.name = "mixin-i18n"
-
+rootProject.name = "handsaw"

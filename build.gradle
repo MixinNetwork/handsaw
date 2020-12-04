@@ -10,7 +10,7 @@ buildscript {
 apply plugin: 'org.jetbrains.kotlin.jvm'
 
 apply plugin: 'application'
-mainClassName = 'one.mixin.i18n.MainKt'
+mainClassName = 'one.mixin.handsaw.MainKt'
 
 dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.0'
