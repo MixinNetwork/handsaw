@@ -128,6 +128,8 @@ class AndroidReader : Reader {
       "en" -> "英文"
       "zh" -> "中文"
       "ja" -> "日文"
+      "ms" -> "马来西亚"
+      "in" -> "印尼"
       else -> ios
     }
   }

@@ -30,7 +30,7 @@ class XLSXParser : Parser {
 
     sheet.rowIterator().forEach rowLoop@{ r ->
       if (r == firstRow) return@rowLoop
-      val firstCol = r.getCell(0)
+      val firstCol = r.getCell(0) ?: return@rowLoop
       val firstColString = firstCol.stringCellValue
       if (firstColString.isNullOrBlank()) return@rowLoop
 
