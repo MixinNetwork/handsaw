@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31'
     }
 }
 
@@ -11,15 +11,6 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 
 apply plugin: 'application'
 mainClassName = 'one.mixin.handsaw.MainKt'
-
-dependencies {
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.0'
-    implementation 'com.github.ajalt.clikt:clikt:3.0.1'
-    implementation 'org.apache.poi:poi:3.17'
-    implementation 'org.apache.poi:poi-ooxml:3.17'
-
-    testImplementation 'junit:junit:4.13'
-}
 
 repositories {
     mavenCentral()
@@ -29,6 +20,16 @@ repositories {
             includeModule('org.jetbrains.kotlinx', 'kotlinx-html-jvm')
         }
     }
+
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt'
+    implementation 'com.github.ajalt.clikt:clikt:3.4.0'
+    implementation 'org.apache.poi:poi:5.0.0'
+    implementation 'org.apache.poi:poi-ooxml:5.0.0'
+
+    testImplementation 'junit:junit:4.13.2'
 }
 
 tasks.named("distTar").configure { task ->
