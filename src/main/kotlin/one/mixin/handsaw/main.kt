@@ -9,13 +9,13 @@ import com.github.ajalt.clikt.parameters.options.required
 
 fun main(vararg args: String) {
   NoOpCliktCommand(name = "mi18n")
-    .subcommands(GenerateCommand(), ReadCommand(), ViewCommand())
+    .subcommands(GenerateCommand(), ReadCommand())
     .main(args)
 }
 
 private class GenerateCommand : CliktCommand(
   name = "gen",
-  help = "Perform generate i18n strings"
+  help = "Generate i18n strings from other sources, xlsx file only for now"
 ) {
   private val inputFile by option("-i", "--input")
     .required()
@@ -60,14 +60,5 @@ private class ReadCommand : CliktCommand(
   override fun run() {
     val reader = AndroidReader()
     reader.read(inputFile, output)
-  }
-}
-
-private class ViewCommand : CliktCommand(
-  name = "view",
-  help = "View i18n strings"
-) {
-  override fun run() {
-
   }
 }
