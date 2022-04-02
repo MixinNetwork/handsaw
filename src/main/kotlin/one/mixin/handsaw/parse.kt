@@ -15,6 +15,7 @@ class XLSXParser : Parser {
 
     var langList = mutableListOf<String>()
     val dataList = mutableMapOf<String, List<String>>()
+    val platformMap = mutableMapOf<String, String>()
 
     val firstRow = sheet.getRow(0) ?: throw InvalidFileFormat(fileName, "The xlsx file has no row")
     val langCol = mutableListOf<Int>()
@@ -26,30 +27,35 @@ class XLSXParser : Parser {
       langList.add(c.stringCellValue)
     }
 
-    langList = name2ISO(langList.drop(1).toMutableList())
+    langList = name2ISO(langList.drop(2) // skip platform + key
+      .toMutableList())
 
     sheet.rowIterator().forEach rowLoop@{ r ->
       if (r == firstRow) return@rowLoop
-      val firstCol = r.getCell(0) ?: return@rowLoop
-      val firstColString = firstCol.stringCellValue
-      if (firstColString.isNullOrBlank()) return@rowLoop
+      val platformCol = r.getCell(0) ?: return@rowLoop
+      val keyCol = r.getCell(1) ?: return@rowLoop
+      val keyColString = keyCol.stringCellValue
+      if (keyColString.isNullOrBlank()) return@rowLoop
 
       val rowList = mutableListOf<String>()
       r.cellIterator().forEach colLoop@{ c ->
-        if (c == firstCol) return@colLoop
+        if (c == keyCol) return@colLoop
 
         val cellValue = c.stringCellValue
-        rowList.add(
-          if (cellValue.isNullOrBlank()) {
-            ""
-          } else {
-            cellValue
-          }
-        )
+        val cellVal = if (cellValue.isNullOrBlank()) {
+          ""
+        } else {
+          cellValue
+        }
+        if (c == platformCol) {
+          platformMap[keyColString] = cellVal
+        } else {
+          rowList.add(cellVal)
+        }
       }
-      dataList[firstColString] = rowList
+      dataList[keyColString] = rowList
     }
-    return ParseResult(langList, dataList)
+    return ParseResult(langList, dataList, platformMap)
   }
 
   private fun readFromXLSXFile(filepath: String): Sheet {
@@ -63,6 +69,8 @@ class XLSXParser : Parser {
       langList[i] = when (l) {
         "中文" -> "zh"
         "日文" -> "ja"
+        "印尼" -> "in"
+        "马来西亚" -> "ms"
         "英文" -> "en"
         else -> l
       }
@@ -73,5 +81,6 @@ class XLSXParser : Parser {
 
 data class ParseResult(
   val langList: List<String>,
-  val dataList: Map<String, List<String>>
+  val dataList: Map<String, List<String>>,
+  val platformMap: Map<String, String>,
 )

@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name" translatable="false">Mixin</string>
+  <string name="app_name">Mixin</string>
   <string name="confirm">確認</string>
   <string name="change">変更</string>
   <string name="common_continue">進む</string>

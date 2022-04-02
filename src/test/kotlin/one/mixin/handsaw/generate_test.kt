@@ -10,9 +10,9 @@ class GeneratorTest {
     val parseResult = parser.parse("src/test/resources/example.xlsx")
 
     val androidGenerator = AndroidGenerator()
-    androidGenerator.generate(parseResult, null)
+    androidGenerator.generate(parseResult, "src/test/resources")
 
     val iOSGenerator = IOSGenerator()
-    iOSGenerator.generate(parseResult, null)
+    iOSGenerator.generate(parseResult, "src/test/resources")
   }
 }

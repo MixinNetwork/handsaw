@@ -45,22 +45,28 @@ class AndroidReader : Reader {
     outputFile.createNewFile()
 
     val xssfWorkbook = XSSFWorkbook()
-    val sheet = xssfWorkbook.createSheet("Android strings")
+    val sheet = xssfWorkbook.createSheet("客户端字符串")
     val headerRow = sheet.createRow(0)
-    val column = stringFiles.size + 1
+    val column = stringFiles.size + 2
     for (i in 0 until column) {
       val cell = headerRow.createCell(i)
-      if (i == 0) {
-        cell.setCellValue("keys")
-      } else {
-        var fileName = stringFiles[i - 1].parentFile.name.drop(6)
-        fileName = if (fileName.startsWith('-', false)) {
-          fileName.drop(1)
-            .take(2)
-        } else {
-          "en"
+      when (i) {
+        0 -> {
+          cell.setCellValue("platform")
         }
-        cell.setCellValue(getIOSDesc(fileName))
+        1 -> {
+          cell.setCellValue("key")
+        }
+        else -> {
+          var fileName = stringFiles[i - 2].parentFile.name.drop(6)
+          fileName = if (fileName.startsWith('-', false)) {
+            fileName.drop(1)
+              .take(2)
+          } else {
+            "en"
+          }
+          cell.setCellValue(getIOSDesc(fileName))
+        }
       }
     }
 
@@ -78,9 +84,11 @@ class AndroidReader : Reader {
       enKeyList.add(key)
       var value = node.firstChild.nodeValue
       val row = sheet.createRow(i + 1)
-      val keyCell = row.createCell(0)
+      val platformCell = row.createCell(0)
+      platformCell.setCellValue("Android")
+      val keyCell = row.createCell(1) // skip platform
       keyCell.setCellValue(key)
-      val enCell = row.createCell(1)
+      val enCell = row.createCell(2) // skip platform + key
       value = escape(value)
       enCell.setCellValue(value)
     }
@@ -96,7 +104,7 @@ class AndroidReader : Reader {
         var value = node.firstChild.nodeValue
         val index = enKeyList.indexOf(key)
         val curRow = sheet.getRow(index + 1)
-        val curCell = curRow.createCell(i + 1)
+        val curCell = curRow.createCell(i + 2) // skip platform + key
         value = escape(value)
         curCell.setCellValue(value)
       }

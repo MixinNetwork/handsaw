@@ -4,6 +4,8 @@ import java.io.File
 
 interface Generator {
   fun generate(parseResult: ParseResult, outputFile: String?)
+
+  fun validPlatform(platform: String): Boolean
 }
 
 val allGenerators = listOf(AndroidGenerator(), IOSGenerator())
@@ -49,8 +51,12 @@ class AndroidGenerator : Generator {
   private fun convertLang(lang: String, parseResult: ParseResult): String {
     val index = parseResult.langList.indexOf(lang)
     val data = parseResult.dataList
+    val platformMap = parseResult.platformMap
     val result = StringBuilder()
     data.forEach { (k, v) ->
+      val platform = platformMap[k]
+      if (platform == null || !validPlatform(platform)) return@forEach
+
       var value: String
       try {
         value = v[index]
@@ -66,10 +72,19 @@ class AndroidGenerator : Generator {
       } catch (e: IndexOutOfBoundsException) {
         value = ""
       }
+      if (value.isBlank()) {
+        // skip if value is empty
+        return@forEach
+      }
+
       val line = "\t<string name=\"$k\">$value</string>\n"
       result.append(line)
     }
     return "<resources>\n$result</resources>"
+  }
+
+  override fun validPlatform(platform: String): Boolean {
+    return platform.equals("Android", true) || platform.equals("Mobile", true)
   }
 }
 
@@ -111,8 +126,12 @@ class IOSGenerator : Generator {
   private fun convertLang(lang: String, parseResult: ParseResult): String {
     val index = parseResult.langList.indexOf(lang)
     val data = parseResult.dataList
+    val platformMap = parseResult.platformMap
     val result = StringBuilder()
     data.forEach { (k, v) ->
+      val platform = platformMap[k]
+      if (platform == null || !validPlatform(platform)) return@forEach
+
       var value: String
       try {
         value = v[index]
@@ -128,9 +147,18 @@ class IOSGenerator : Generator {
       } catch (e: IndexOutOfBoundsException) {
         value = ""
       }
+      if (value.isBlank()) {
+        // skip if value is empty
+        return@forEach
+      }
+
       val line = "\"$k\" = \"$value\";\n"
       result.append(line)
     }
     return result.toString()
+  }
+
+  override fun validPlatform(platform: String): Boolean {
+    return platform.equals("iOS", true) || platform.equals("Mobile", true)
   }
 }
