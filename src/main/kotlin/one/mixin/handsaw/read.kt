@@ -38,14 +38,14 @@ class AndroidReader : Reader {
       outDir.delete()
     }
     outDir.mkdirs()
-    val outputFile = File("$outDir${File.separator}Android.xlsx")
+    val outputFile = File("$outDir${File.separator}client.xlsx")
     if (outputFile.exists()) {
       outputFile.delete()
     }
     outputFile.createNewFile()
 
     val xssfWorkbook = XSSFWorkbook()
-    val sheet = xssfWorkbook.createSheet("客户端字符串")
+    val sheet = xssfWorkbook.createSheet("Android string")
     val headerRow = sheet.createRow(0)
     val column = stringFiles.size + 2
     for (i in 0 until column) {
@@ -85,7 +85,7 @@ class AndroidReader : Reader {
       var value = node.firstChild.nodeValue
       val row = sheet.createRow(i + 1)
       val platformCell = row.createCell(0)
-      platformCell.setCellValue("Android")
+      platformCell.setCellValue("Mobile")
       val keyCell = row.createCell(1) // skip platform
       keyCell.setCellValue(key)
       val enCell = row.createCell(2) // skip platform + key
