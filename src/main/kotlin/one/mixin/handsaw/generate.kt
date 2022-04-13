@@ -10,8 +10,8 @@ interface Generator {
 
 val allGenerators = listOf(AndroidGenerator(), IOSGenerator())
 
-val ANDROID_PLACE_HOLDER = "%[\\d]+[\$][d|s]".toRegex()
-val IOS_PLACE_HOLDER = "%[\\d]+[\$][@]".toRegex()
+val androidPlaceHolder = "%[\\d]+[\$][d|s]".toRegex()
+val iosPlaceHolder = "%[\\d]+[\$][@]".toRegex()
 
 class AndroidGenerator : Generator {
   override fun generate(parseResult: ParseResult, outputFile: String?) {
@@ -53,6 +53,7 @@ class AndroidGenerator : Generator {
     val data = parseResult.dataList
     val platformMap = parseResult.platformMap
     val result = StringBuilder()
+    var pluralKey = ""
     data.forEach { (k, v) ->
       val platform = platformMap[k]
       if (platform == null || !validPlatform(platform)) return@forEach
@@ -77,8 +78,23 @@ class AndroidGenerator : Generator {
         return@forEach
       }
 
-      val line = "\t<string name=\"$k\">$value</string>\n"
-      result.append(line)
+      if (pluralKey == k) {
+        result.append("\t\t<item quantity=\"one\">$value</item>\n")
+          .append("\t</plurals>\n")
+        pluralKey = ""
+      } else if (k.endsWith("_count")) {
+        val localPluralKey = k.substringBeforeLast("_count")
+        val singleExists = data[localPluralKey]
+        if (singleExists != null && singleExists.isNotEmpty()) {
+          result.append("\t<plurals name=\"$localPluralKey\">\n")
+            .append("\t\t<item quantity=\"other\">$value</item>\n")
+          pluralKey = localPluralKey
+        } else {
+          result.append("\t<string name=\"$k\">$value</string>\n")
+        }
+      } else {
+        result.append("\t<string name=\"$k\">$value</string>\n")
+      }
     }
     return "<resources>\n$result</resources>"
   }
@@ -141,7 +157,7 @@ class IOSGenerator : Generator {
         if ("\"" in value) {
           value = value.replace("\"", "\\\"")
         }
-        value = value.replace(ANDROID_PLACE_HOLDER) { r ->
+        value = value.replace(androidPlaceHolder) { r ->
           r.value.dropLast(1).plus('@')
         }
       } catch (e: IndexOutOfBoundsException) {
