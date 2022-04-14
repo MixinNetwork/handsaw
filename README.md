@@ -105,9 +105,13 @@ following strings for iOS:
 "continue_count" = "Continue(%1$@)";
 "number_of_day_count" = "%1$@ days remaining";
 "number_of_day" = "one day remaining";
+"participant_count" = "%1$@ participant";
+"participant_count_count" = "%1$@ participants";
 
 "continue_count" = "继续（%1$@）";
 "number_of_day_count" = "剩余%1$@天";
+"participant_count" = "%1$@ 名成员";
+"participant_count_count" = "%1$@ 名成员";
 ```
 
 ### Read from Android platform
