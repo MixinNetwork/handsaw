@@ -62,7 +62,7 @@ if you want generate plural format like:
     <item quantity="one">one day remaining</item>
 </plurals>
 ```
-you need name the key as `number_of_day.count` and `number_of_day`, and keep `.count` key ahead of normal key in xlsx file.
+you need name the key as `number_of_day.count` and `number_of_day`
 
 e,g:
 
@@ -71,6 +71,8 @@ e,g:
 |mobile|continue.count|Continue(%1$s)|继续(%1$s)|
 |mobile|number_of_day.count|%1$d days remaining|%1$d 天剩余|
 |mobile|number_of_day|one day remaining||
+|mobile|participant_count|%1$d participants|%1$d 名成员|
+|mobile|participant_count.count|%1$d participants|%1$d 名成员|
 
 will generate following strings for Android:
 ```xml
@@ -81,12 +83,20 @@ will generate following strings for Android:
   <item quantity="other">%1$d days remaining</item>
   <item quantity="one">one day remaining</item>
 </plurals>
+<plurals name="participant_count">
+  <item quantity="one">%1$d participant</item>
+  <item quantity="other">%1$d participants</item>
+</plurals>
 
 <plurals name="continue" tools:ignore="UnusedQuantity">
   <item quantity="other">继续（%1$s）</item>
 </plurals>
 <plurals name="number_of_day" tools:ignore="UnusedQuantity">
   <item quantity="other">剩余%1$d天</item>
+</plurals>
+<plurals name="participant_count">
+  <item quantity="one">%1$d 名成员</item>
+  <item quantity="other">%1$d 名成员</item>
 </plurals>
 ```
 

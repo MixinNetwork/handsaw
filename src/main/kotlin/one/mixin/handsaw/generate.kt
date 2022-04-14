@@ -83,6 +83,10 @@ class AndroidGenerator : Generator {
         result.append("\t\t<item quantity=\"one\">$value</item>\n")
           .append("\t</plurals>\n")
         pluralKey = ""
+      } else if ("$pluralKey.count" == k) {
+        result.append("\t\t<item quantity=\"other\">$value</item>\n")
+          .append("\t</plurals>\n")
+        pluralKey = ""
       } else if (k.endsWith(".count")) {
         val localPluralKey = k.substringBeforeLast(".count")
         val singleExists = data[localPluralKey]
@@ -95,6 +99,10 @@ class AndroidGenerator : Generator {
             .append("\t\t<item quantity=\"other\">$value</item>\n")
             .append("\t</plurals>\n")
         }
+      } else if (pluralKey == "" && data["$k.count"] != null) {
+        result.append("\t<plurals name=\"$k\">\n")
+          .append("\t\t<item quantity=\"one\">$value</item>\n")
+        pluralKey = k
       } else {
         result.append("\t<string name=\"$k\">$value</string>\n")
       }
