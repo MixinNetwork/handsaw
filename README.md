@@ -62,29 +62,42 @@ if you want generate plural format like:
     <item quantity="one">one day remaining</item>
 </plurals>
 ```
-you need name the key as `number_of_day_count` and `number_of_day`, and keep `_count` key ahead of normal key in xlsx file.
+you need name the key as `number_of_day.count` and `number_of_day`, and keep `_count` key ahead of normal key in xlsx file.
 
 e,g:
 
 |platform|keys|en|zh|
 | --- | --- | --- | --- |
-|mobile|continue_count|Continue(%1$s)|继续(%1$s)|
-|mobile|number_of_day_count|%1$d days remaining|%1$d 天剩余|
-|mobile|number_of_day|one day remaining|一天剩余|
+|mobile|continue.count|Continue(%1$s)|继续(%1$s)|
+|mobile|number_of_day.count|%1$d days remaining|%1$d 天剩余|
+|mobile|number_of_day|one day remaining||
 
-will generate following strings:
+will generate following strings for Android:
 ```xml
-<string name="continue_count">Continue(%1$s)</string>
-<plurals name="number_of_day_count">
-    <item quantity="other">%1$d days remaining</item>
-    <item quantity="one">one day remaining</item>
+<plurals name="continue" tools:ignore="UnusedQuantity">
+  <item quantity="other">Continue(%1$s)</item>
+</plurals>
+<plurals name="number_of_day">
+  <item quantity="other">%1$d days remaining</item>
+  <item quantity="one">one day remaining</item>
 </plurals>
 
-<string name="continue_count">继续（%1$s）</string>
-<plurals name="number_of_day_count">
-    <item quantity="other">剩余%1$d天</item>
-    <item quantity="one">剩余1天</item>
+<plurals name="continue" tools:ignore="UnusedQuantity">
+  <item quantity="other">继续（%1$s）</item>
 </plurals>
+<plurals name="number_of_day" tools:ignore="UnusedQuantity">
+  <item quantity="other">剩余%1$d天</item>
+</plurals>
+```
+
+following strings for iOS:
+```
+"continue_count" = "Continue(%1$@)";
+"number_of_day_count" = "%1$@ days remaining";
+"number_of_day" = "one day remaining";
+
+"continue_count" = "继续（%1$@）";
+"number_of_day_count" = "剩余%1$@天";
 ```
 
 ### Read from Android platform

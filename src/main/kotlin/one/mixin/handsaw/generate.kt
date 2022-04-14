@@ -78,25 +78,28 @@ class AndroidGenerator : Generator {
         return@forEach
       }
 
+      println("key: $k, pluralKey: $pluralKey")
       if (pluralKey == k) {
         result.append("\t\t<item quantity=\"one\">$value</item>\n")
           .append("\t</plurals>\n")
         pluralKey = ""
-      } else if (k.endsWith("_count")) {
-        val localPluralKey = k.substringBeforeLast("_count")
+      } else if (k.endsWith(".count")) {
+        val localPluralKey = k.substringBeforeLast(".count")
         val singleExists = data[localPluralKey]
-        if (singleExists != null && singleExists.isNotEmpty()) {
+        if (singleExists != null && singleExists.isNotEmpty() && singleExists[index].isNotBlank()) {
           result.append("\t<plurals name=\"$localPluralKey\">\n")
             .append("\t\t<item quantity=\"other\">$value</item>\n")
           pluralKey = localPluralKey
         } else {
-          result.append("\t<string name=\"$k\">$value</string>\n")
+          result.append("\t<plurals name=\"$localPluralKey\" tools:ignore=\"UnusedQuantity\">\n")
+            .append("\t\t<item quantity=\"other\">$value</item>\n")
+            .append("\t</plurals>\n")
         }
       } else {
         result.append("\t<string name=\"$k\">$value</string>\n")
       }
     }
-    return "<resources>\n$result</resources>"
+    return "<resources xmlns:tools=\"http://schemas.android.com/tools\">\n$result</resources>"
   }
 
   override fun validPlatform(platform: String): Boolean {
@@ -168,7 +171,10 @@ class IOSGenerator : Generator {
         return@forEach
       }
 
-      val line = "\"$k\" = \"$value\";\n"
+      val localKey = if (k.endsWith(".count")) {
+        k.replace(".count", "_count")
+      } else k
+      val line = "\"$localKey\" = \"$value\";\n"
       result.append(line)
     }
     return result.toString()
