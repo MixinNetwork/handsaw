@@ -62,7 +62,7 @@ if you want generate plural format like:
     <item quantity="one">one day remaining</item>
 </plurals>
 ```
-you need name the key as `number_of_day.count` and `number_of_day`, and keep `_count` key ahead of normal key in xlsx file.
+you need name the key as `number_of_day.count` and `number_of_day`, and keep `.count` key ahead of normal key in xlsx file.
 
 e,g:
 
