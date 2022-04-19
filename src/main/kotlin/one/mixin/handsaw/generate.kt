@@ -169,7 +169,12 @@ class IOSGenerator : Generator {
           value = value.replace("\"", "\\\"")
         }
         value = value.replace(androidPlaceHolder) { r ->
-          r.value.dropLast(1).plus('@')
+          val remain = r.value.drop(3)
+          if (remain.last() == 's') {
+            remain.dropLast(1).plus("%@")
+          } else {
+            remain.dropLast(1).plus("%d")
+          }
         }
       } catch (e: IndexOutOfBoundsException) {
         value = ""

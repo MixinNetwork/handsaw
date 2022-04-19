@@ -54,6 +54,10 @@ it will generate following files:
       - ms.lproj
         - Localizable.strings
 
+#### placeholders
+general platform placeholders use format like `%1$s` `%2$d`, it will generate platform specific placeholders, for example: `%@` `%d` for iOS etc.
+special platform can use its own placeholders, for example: iOS use `%@` `%d`, Android use `%1$s` `%2$d`, etc.
+
 #### plural case
 if you want generate plural format like:
 ```xml
