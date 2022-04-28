@@ -90,7 +90,7 @@ class AndroidGenerator : Generator {
       } else if (k.endsWith(".count")) {
         val localPluralKey = k.substringBeforeLast(".count")
         val singleExists = data[localPluralKey]
-        if (singleExists != null && singleExists.isNotEmpty() && singleExists[index].isNotBlank()) {
+        if (singleExists != null && singleExists.isNotEmpty() && singleExists.getOrNull(index)?.isNotBlank() == true) {
           result.append("\t<plurals name=\"$localPluralKey\">\n")
             .append("\t\t<item quantity=\"other\">$value</item>\n")
           pluralKey = localPluralKey
