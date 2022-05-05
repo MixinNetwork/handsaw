@@ -14,5 +14,8 @@ class GeneratorTest {
 
     val iOSGenerator = IOSGenerator()
     iOSGenerator.generate(parseResult, null)
+
+    val iOSGeneratorEn = IOSGenerator(KeyType.EnValue)
+    iOSGeneratorEn.generate(parseResult, null)
   }
 }

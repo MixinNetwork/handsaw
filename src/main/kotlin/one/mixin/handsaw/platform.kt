@@ -3,7 +3,7 @@ package one.mixin.handsaw
 sealed class Platform {
   sealed class Mobile : Platform() {
     object Android : Mobile()
-    object Ios : Mobile()
+    object IOS : Mobile()
   }
 
   sealed class Desktop : Platform() {

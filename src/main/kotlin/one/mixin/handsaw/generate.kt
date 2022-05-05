@@ -4,11 +4,8 @@ import java.io.File
 
 interface Generator {
   fun generate(parseResult: ParseResult, outputFile: String?)
-
   fun validPlatform(platform: String): Boolean
 }
-
-val allGenerators = listOf(AndroidGenerator(), IOSGenerator())
 
 val androidPlaceHolder = "%[\\d]+[\$][d|s]".toRegex()
 val iosPlaceHolder = "%[\\d]+[\$][@]".toRegex()
@@ -78,7 +75,6 @@ class AndroidGenerator : Generator {
         return@forEach
       }
 
-      println("key: $k, pluralKey: $pluralKey")
       if (pluralKey == k) {
         result.append("\t\t<item quantity=\"one\">$value</item>\n")
           .append("\t</plurals>\n")
@@ -115,7 +111,9 @@ class AndroidGenerator : Generator {
   }
 }
 
-class IOSGenerator : Generator {
+class IOSGenerator(
+  private val keyType: KeyType = KeyType.Default
+) : Generator {
   override fun generate(parseResult: ParseResult, outputFile: String?) {
     val path = if (outputFile.isNullOrBlank()) {
       System.getProperty("user.dir")
@@ -128,7 +126,7 @@ class IOSGenerator : Generator {
     }
     outDir.mkdir()
 
-    val keyEnValMap = mutableMapOf<String, String>()
+    val keyEnValMap = if (keyType == KeyType.EnValue) mutableMapOf<String, String>() else null
     parseResult.langList.forEach { lang ->
       val text = convertLang(lang, parseResult, keyEnValMap)
       val dirName = "$lang.lproj"
@@ -151,7 +149,7 @@ class IOSGenerator : Generator {
     }
   }
 
-  private fun convertLang(lang: String, parseResult: ParseResult, keyEnValMap: MutableMap<String, String>): String {
+  private fun convertLang(lang: String, parseResult: ParseResult, keyEnValMap: MutableMap<String, String>?): String {
     val index = parseResult.langList.indexOf(lang)
     val data = parseResult.dataList
     val platformMap = parseResult.platformMap
@@ -185,11 +183,19 @@ class IOSGenerator : Generator {
         return@forEach
       }
 
-      if (lang == "en") {
+      if (keyEnValMap != null && lang == "en") {
         keyEnValMap[k] = value
       }
 
-      val line = "\"${keyEnValMap[k]}\" = \"$value\";\n"
+      val line = if (keyEnValMap != null) {
+        "\"${keyEnValMap[k]}\" = \"$value\";\n"
+      } else {
+        val localKey = if (k.endsWith(".count")) {
+          k.replace(".count", "_count")
+        } else k
+        "\"$localKey\" = \"$value\";\n"
+      }
+
       result.append(line)
     }
     return result.toString()
@@ -198,4 +204,8 @@ class IOSGenerator : Generator {
   override fun validPlatform(platform: String): Boolean {
     return platform.equals("iOS", true) || platform.equals("Mobile", true)
   }
+}
+
+enum class KeyType {
+  Default, EnValue
 }
