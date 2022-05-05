@@ -128,8 +128,9 @@ class IOSGenerator : Generator {
     }
     outDir.mkdir()
 
+    val keyEnValMap = mutableMapOf<String, String>()
     parseResult.langList.forEach { lang ->
-      val text = convertLang(lang, parseResult)
+      val text = convertLang(lang, parseResult, keyEnValMap)
       val dirName = "$lang.lproj"
       val fileName = "Localizable.strings"
 
@@ -150,7 +151,7 @@ class IOSGenerator : Generator {
     }
   }
 
-  private fun convertLang(lang: String, parseResult: ParseResult): String {
+  private fun convertLang(lang: String, parseResult: ParseResult, keyEnValMap: MutableMap<String, String>): String {
     val index = parseResult.langList.indexOf(lang)
     val data = parseResult.dataList
     val platformMap = parseResult.platformMap
@@ -184,10 +185,11 @@ class IOSGenerator : Generator {
         return@forEach
       }
 
-      val localKey = if (k.endsWith(".count")) {
-        k.replace(".count", "_count")
-      } else k
-      val line = "\"$localKey\" = \"$value\";\n"
+      if (lang == "en") {
+        keyEnValMap[k] = value
+      }
+
+      val line = "\"${keyEnValMap[k]}\" = \"$value\";\n"
       result.append(line)
     }
     return result.toString()
