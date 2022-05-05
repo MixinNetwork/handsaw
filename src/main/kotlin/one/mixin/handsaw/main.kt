@@ -10,7 +10,7 @@ import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.int
 
 fun main(vararg args: String) {
-  NoOpCliktCommand(name = "mi18n")
+  NoOpCliktCommand(name = "handsaw")
     .subcommands(GenerateCommand(), ReadCommand())
     .main(args)
 }

@@ -58,6 +58,12 @@ it will generate following files:
 general platform placeholders use format like `%1$s` `%2$d`, it will generate platform specific placeholders, for example: `%@` `%d` for iOS etc.
 special platform can use its own placeholders, for example: iOS use `%@` `%d`, Android use `%1$s` `%2$d`, etc.
 
+#### iOS key-type
+iOS platform support parameter key-type, default value is 0, which means use the xlsx key as the key, 1 means use the English column as the key.
+```
+./run.sh gen -k 1
+```
+
 #### plural case
 if you want generate plural format like:
 ```xml
@@ -117,6 +123,23 @@ following strings for iOS:
 "participant_count" = "%1$@ 名成员";
 "participant_count_count" = "%1$@ 名成员";
 ```
+
+with `-k 1` option:
+```
+"Continue(%@)" = "Continue(%@)";
+"Continue(%@)" = "Continue(%@)";
+"%d days remaining" = "%d days remaining";
+"one day remaining" = "one day remaining";
+"%d participant" = "%d participant";
+"%d participants" = "%d participants";
+
+"Continue(%@)" = "继续（%@）";
+"Continue(%@)" = "继续（%@）";
+"%d days remaining" = "剩余%d天";
+"%d participant" = "%d 名成员";
+"%d participants" = "%d 名成员";
+```
+
 
 ### Read from Android platform
 
