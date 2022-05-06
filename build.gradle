@@ -14,20 +14,13 @@ mainClassName = 'one.mixin.handsaw.MainKt'
 
 repositories {
     mavenCentral()
-    // https://github.com/Kotlin/kotlinx.html/issues/81
-    jcenter {
-        content {
-            includeModule('org.jetbrains.kotlinx', 'kotlinx-html-jvm')
-        }
-    }
-
 }
 
 dependencies {
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt'
-    implementation 'com.github.ajalt.clikt:clikt:3.4.0'
-    implementation 'org.apache.poi:poi:5.0.0'
-    implementation 'org.apache.poi:poi-ooxml:5.0.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1-native-mt'
+    implementation 'com.github.ajalt.clikt:clikt:3.4.2'
+    implementation 'org.apache.poi:poi:5.2.2'
+    implementation 'org.apache.poi:poi-ooxml:5.2.2'
 
     testImplementation 'junit:junit:4.13.2'
 }
