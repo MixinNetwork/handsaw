@@ -4,7 +4,7 @@ A tool for generating i18n strings for multiple platforms.
 
 ## Usage
 ```
-> ./run.sh
+> handsaw --help
 Usage: mi18n [OPTIONS] COMMAND [ARGS]...
 
 Options:
@@ -28,7 +28,7 @@ maintain a xlsx file with the following structure:
 
 run command below to generate i18n strings:
 ```
-./run.sh gen -i ~/Downloads/client.xlsx -o ~/Downloads/
+handsaw gen -i ~/Downloads/client.xlsx -o ~/Downloads/
 ```
 
 it will generate following files:
@@ -61,7 +61,7 @@ special platform can use its own placeholders, for example: iOS use `%@` `%d`, A
 #### iOS key-type
 iOS platform support parameter key-type, default value is 0, which means use the xlsx key as the key, 1 means use the English column as the key.
 ```
-./run.sh gen -k 1
+handsaw gen -k 1
 ```
 
 #### plural case
@@ -145,6 +145,6 @@ with `-k 1` option:
 
 run command below to read i18n strings from Android platform and generate a xlsx file:
 ```
-./run.sh read -i ~/android-app/app/src/main/res/ -o ~/Downloads
+handsaw read -i ~/android-app/app/src/main/res/ -o ~/Downloads
 ```
 it will generate a client.xlsx file.
