@@ -3,8 +3,16 @@
 A tool for generating i18n strings for multiple platforms.
 
 ## Usage
+
+Install on MacOS with:
 ```
-> handsaw --help
+$ curl -L  https://raw.githubusercontent.com/MixinNetwork/handsaw/main/handsaw.rb > handsaw.rb && brew install handsaw.rb && rm handsaw.rb
+```
+
+For other platforms, download ZIP from [latest release](https://github.com/MixinNetwork/handsaw/releases/latest) and run: `bin/handsaw` or `bin/handsaw.bat`.
+
+```
+$ handsaw --help
 Usage: mi18n [OPTIONS] COMMAND [ARGS]...
 
 Options:
@@ -28,7 +36,7 @@ maintain a xlsx file with the following structure:
 
 run command below to generate i18n strings:
 ```
-handsaw gen -i ~/Downloads/client.xlsx -o ~/Downloads/
+$ handsaw gen -i ~/Downloads/client.xlsx -o ~/Downloads/
 ```
 
 it will generate following files:
@@ -61,7 +69,7 @@ special platform can use its own placeholders, for example: iOS use `%@` `%d`, A
 #### iOS key-type
 iOS platform support parameter key-type, default value is 0, which means use the xlsx key as the key, 1 means use the English column as the key.
 ```
-handsaw gen -k 1
+$ handsaw gen -k 1
 ```
 
 #### plural case
@@ -145,6 +153,6 @@ with `-k 1` option:
 
 run command below to read i18n strings from Android platform and generate a xlsx file:
 ```
-handsaw read -i ~/android-app/app/src/main/res/ -o ~/Downloads
+$ handsaw read -i ~/android-app/app/src/main/res/ -o ~/Downloads
 ```
 it will generate a client.xlsx file.
