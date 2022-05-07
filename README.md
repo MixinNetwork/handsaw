@@ -13,7 +13,7 @@ For other platforms, download ZIP from [latest release](https://github.com/Mixin
 
 ```
 $ handsaw --help
-Usage: mi18n [OPTIONS] COMMAND [ARGS]...
+Usage: handsaw [OPTIONS] COMMAND [ARGS]...
 
 Options:
   -h, --help  Show this message and exit
