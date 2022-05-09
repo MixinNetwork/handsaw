@@ -161,9 +161,6 @@ class IOSGenerator(
       var value: String
       try {
         value = v[index]
-        if ("\'" in value) {
-          value = value.replace("\'", "\\\'")
-        }
         if ("\"" in value) {
           value = value.replace("\"", "\\\"")
         }
