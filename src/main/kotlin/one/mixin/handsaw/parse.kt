@@ -1,6 +1,7 @@
 package one.mixin.handsaw
 
 import com.github.ajalt.clikt.core.InvalidFileFormat
+import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import java.io.FileInputStream
@@ -38,14 +39,19 @@ class XLSXParser : Parser {
       if (keyColString.isNullOrBlank()) return@rowLoop
 
       val rowList = mutableListOf<String>()
-      r.cellIterator().forEach colLoop@{ c ->
-        if (c == keyCol) return@colLoop
+      for (i in 0 until r.lastCellNum) {
+        val c = r.getCell(i, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL)
+        if (c == keyCol) continue
 
-        val cellValue = c.stringCellValue
-        val cellVal = if (cellValue.isNullOrBlank()) {
+        val cellVal = if (c == null) {
           ""
         } else {
-          cellValue
+          val cellValue = c.stringCellValue
+          if (cellValue.isNullOrBlank()) {
+            ""
+          } else {
+            cellValue
+          }
         }
         if (c == platformCol) {
           platformMap[keyColString] = cellVal
