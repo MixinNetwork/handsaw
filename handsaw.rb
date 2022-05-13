@@ -3,7 +3,7 @@ class Handsaw < Formula
     homepage "https://github.com/MixinNetwork/handsaw"
     url "https://github.com/MixinNetwork/handsaw/releases/download/0.2.0/handsaw.zip"
     version "0.2.0"
-    sha256 "758bc4999dc1cb558eecd526dccf935e96806179b455c545251fc570cd7a1b20"
+    sha256 "cde28799be0e0f482d8ae42691679249774078891f820291504f10e495334e20"
 
     depends_on "openjdk"
 
