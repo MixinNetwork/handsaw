@@ -164,12 +164,22 @@ class IOSGenerator(
         if ("\"" in value) {
           value = value.replace("\"", "\\\"")
         }
+
+        val phCount = androidPlaceHolder.findAll(value).count()
         value = value.replace(androidPlaceHolder) { r ->
-          val remain = r.value.drop(3)
-          if (remain.last() == 's') {
-            remain.dropLast(1).plus("%@")
+          if (phCount > 1) {
+            if (r.value.last() == 's') {
+              r.value.dropLast(1).plus("@")
+            } else {
+              r.value
+            }
           } else {
-            remain.dropLast(1).plus("%d")
+            val remain = r.value.drop(3)
+            if (remain.last() == 's') {
+              remain.dropLast(1).plus("%@")
+            } else {
+              remain.dropLast(1).plus("%d")
+            }
           }
         }
       } catch (e: IndexOutOfBoundsException) {
@@ -190,7 +200,7 @@ class IOSGenerator(
         val localKey = if (k.endsWith(".count")) {
           k.replace(".count", "_count")
         } else k
-        "\"$localKey\" = \"$value\";\n"
+        "\"${localKey.lowercase()}\" = \"$value\";\n"
       }
 
       result.append(line)
