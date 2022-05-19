@@ -106,9 +106,8 @@ class AndroidGenerator : Generator {
     return "<resources xmlns:tools=\"http://schemas.android.com/tools\">\n$result</resources>"
   }
 
-  override fun validPlatform(platform: String): Boolean {
-    return platform.equals("Android", true) || platform.equals("Mobile", true)
-  }
+  override fun validPlatform(platform: String): Boolean =
+    platform.split(',').containsIgnoreCase(Platform.Android.toString())
 }
 
 class IOSGenerator(
@@ -208,9 +207,8 @@ class IOSGenerator(
     return result.toString()
   }
 
-  override fun validPlatform(platform: String): Boolean {
-    return platform.equals("iOS", true) || platform.equals("Mobile", true)
-  }
+  override fun validPlatform(platform: String): Boolean =
+    platform.split(',').containsIgnoreCase(Platform.IOS.toString())
 }
 
 enum class KeyType {
