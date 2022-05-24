@@ -29,10 +29,10 @@ maintain a xlsx file with the following structure:
 
 |platform|keys|en|zh|ja|ms|
 | --- | --- | --- | --- | --- | --- |
-|mobile|key1|value1|value1|value1|value1|
-|android|key2|value2|value2|value2|value2|
-|ios|key3|value3|value3|value3|value3|
-|mobile|key4|value4|value4|value4|value4|
+|Android,iOS|key1|value1|value1|value1|value1|
+|Android|key2|value2|value2|value2|value2|
+|iOS|key3|value3|value3|value3|value3|
+|Android,ios|key4|value4|value4|value4|value4|
 
 run command below to generate i18n strings:
 ```
@@ -86,11 +86,11 @@ e,g:
 
 |platform|keys|en|zh|
 | --- | --- | --- | --- |
-|mobile|continue.count|Continue(%1$s)|继续(%1$s)|
-|mobile|number_of_day.count|%1$d days remaining|%1$d 天剩余|
-|mobile|number_of_day|one day remaining||
-|mobile|participant_count|%1$d participants|%1$d 名成员|
-|mobile|participant_count.count|%1$d participants|%1$d 名成员|
+|Android,iOS|continue.count|Continue(%1$s)|继续(%1$s)|
+|Android,iOS|number_of_day.count|%1$d days remaining|%1$d 天剩余|
+|Android,iOS|number_of_day|one day remaining||
+|Android,iOS|participant_count|%1$d participants|%1$d 名成员|
+|Android,iOS|participant_count.count|%1$d participants|%1$d 名成员|
 
 will generate following strings for Android:
 ```xml

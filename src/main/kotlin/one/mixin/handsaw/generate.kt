@@ -1,6 +1,5 @@
 package one.mixin.handsaw
 
-import net.pearx.kasechange.toCamelCase
 import java.io.File
 
 interface Generator {
@@ -18,8 +17,7 @@ class AndroidGenerator : Generator {
     } else {
       outputFile
     }
-    val outDir =
-      File("$path${File.separator}output${File.separator}Android")
+    val outDir = File("$path${File.separator}output${File.separator}Android")
     if (outDir.exists()) {
       outDir.delete()
     }
@@ -88,10 +86,7 @@ class AndroidGenerator : Generator {
       } else if (k.endsWith(".count")) {
         val localPluralKey = k.substringBeforeLast(".count")
         val singleExists = data[localPluralKey]
-        if (singleExists != null && singleExists.isNotEmpty() && singleExists.getOrNull(
-            index
-          )?.isNotBlank() == true
-        ) {
+        if (singleExists != null && singleExists.isNotEmpty() && singleExists.getOrNull(index)?.isNotBlank() == true) {
           result.append("\t<plurals name=\"$localPluralKey\">\n")
             .append("\t\t<item quantity=\"other\">$value</item>\n")
           pluralKey = localPluralKey
@@ -112,7 +107,7 @@ class AndroidGenerator : Generator {
   }
 
   override fun validPlatform(platform: String): Boolean =
-    platform.contains("android", true)
+    platform.split(',').containsIgnoreCase(Platform.Android.toString())
 }
 
 class IOSGenerator(
@@ -130,8 +125,7 @@ class IOSGenerator(
     }
     outDir.mkdir()
 
-    val keyEnValMap =
-      if (keyType == KeyType.EnValue) mutableMapOf<String, String>() else null
+    val keyEnValMap = if (keyType == KeyType.EnValue) mutableMapOf<String, String>() else null
     parseResult.langList.forEach { lang ->
       val text = convertLang(lang, parseResult, keyEnValMap)
       val dirName = "$lang.lproj"
@@ -154,11 +148,7 @@ class IOSGenerator(
     }
   }
 
-  private fun convertLang(
-    lang: String,
-    parseResult: ParseResult,
-    keyEnValMap: MutableMap<String, String>?
-  ): String {
+  private fun convertLang(lang: String, parseResult: ParseResult, keyEnValMap: MutableMap<String, String>?): String {
     val index = parseResult.langList.indexOf(lang)
     val data = parseResult.dataList
     val platformMap = parseResult.platformMap
@@ -218,7 +208,7 @@ class IOSGenerator(
   }
 
   override fun validPlatform(platform: String): Boolean =
-    platform.contains("ios", true)
+    platform.split(',').containsIgnoreCase(Platform.IOS.toString())
 }
 
 class FlutterGenerator : Generator {
@@ -313,3 +303,4 @@ class FlutterGenerator : Generator {
 enum class KeyType {
   Default, EnValue
 }
+

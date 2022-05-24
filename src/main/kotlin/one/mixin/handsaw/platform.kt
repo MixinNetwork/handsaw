@@ -1,16 +1,16 @@
 package one.mixin.handsaw
 
 sealed class Platform {
-  sealed class Mobile : Platform() {
-    object Android : Mobile()
-    object IOS : Mobile()
-  }
+    object Android : Platform()
+    object IOS : Platform()
+    object Desktop: Platform()
 
-  sealed class Desktop : Platform() {
-    object Mac : Desktop()
-    object Windows : Desktop()
-    object Linux : Desktop()
-  }
-
-  object Web : Platform()
+    override fun toString(): String =
+        when(this) {
+            Android -> "Android"
+            IOS -> "iOS"
+            Desktop -> "Desktop"
+        }
 }
+
+fun Collection<String>.containsIgnoreCase(text: String) = any { it.trim().equals(text, true) }
