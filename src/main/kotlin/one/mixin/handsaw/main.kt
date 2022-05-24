@@ -39,15 +39,19 @@ private class GenerateCommand : CliktCommand(
     val parseResult = parser.parse(inputFile)
 
     if (platform.isNullOrBlank()) {
-      val allGenerators = listOf(AndroidGenerator(), getIOSGenerator(keyType))
+      val allGenerators = listOf(AndroidGenerator(), getIOSGenerator(keyType), FlutterGenerator())
       allGenerators.forEach { generator ->
         generator.generate(parseResult, output)
       }
     } else {
       val generator = if (platform.equals("Android", true)) {
         AndroidGenerator()
-      } else {
+      } else if (platform.equals("iOS", true)) {
         getIOSGenerator(keyType)
+      } else if (platform.equals("Flutter", true)) {
+        FlutterGenerator()
+      } else {
+        throw IllegalArgumentException("Unsupported platform: $platform")
       }
       generator.generate(parseResult, output)
     }
