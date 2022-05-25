@@ -29,10 +29,10 @@ maintain a xlsx file with the following structure:
 
 |platform|keys|en|zh|ja|ms|
 | --- | --- | --- | --- | --- | --- |
-|Android,iOS|key1|value1|value1|value1|value1|
+|Android,iOS,Desktop|key1|value1|value1|value1|value1|
 |Android|key2|value2|value2|value2|value2|
 |iOS|key3|value3|value3|value3|value3|
-|Android,ios|key4|value4|value4|value4|value4|
+|Android,ios,Desktop|key4|value4|value4|value4|value4|
 
 run command below to generate i18n strings:
 ```
@@ -61,6 +61,10 @@ it will generate following files:
         - Localizable.strings
       - ms.lproj
         - Localizable.strings
+    - Flutter
+      - intl_en.arb
+      - intl_ja.arb
+      - intl_zh.arb
 
 #### placeholders
 general platform placeholders use format like `%1$s` `%2$d`, it will generate platform specific placeholders, for example: `%@` `%d` for iOS etc.
@@ -86,11 +90,11 @@ e,g:
 
 |platform|keys|en|zh|
 | --- | --- | --- | --- |
-|Android,iOS|continue.count|Continue(%1$s)|继续(%1$s)|
-|Android,iOS|number_of_day.count|%1$d days remaining|%1$d 天剩余|
-|Android,iOS|number_of_day|one day remaining||
-|Android,iOS|participant_count|%1$d participants|%1$d 名成员|
-|Android,iOS|participant_count.count|%1$d participants|%1$d 名成员|
+|Android,iOS,Desktop|continue.count|Continue(%1$s)|继续(%1$s)|
+|Android,iOS,Desktop|number_of_day.count|%1$d days remaining|%1$d 天剩余|
+|Android,iOS,Desktop|number_of_day|one day remaining||
+|Android,iOS,Desktop|participant_count|%1$d participants|%1$d 名成员|
+|Android,iOS,Desktop|participant_count.count|%1$d participants|%1$d 名成员|
 
 will generate following strings for Android:
 ```xml
@@ -146,6 +150,22 @@ with `-k 1` option:
 "%d days remaining" = "剩余%d天";
 "%d participant" = "%d 名成员";
 "%d participants" = "%d 名成员";
+```
+
+following strings for Flutter:
+```
+{
+"continueCount" : "Continue{arg0}",
+"numberOfDayCount" : "%1$@ days remaining",
+"numberOfDay" : "one day remaining",
+"participantCount" : "%1$@ participant",
+"participantCountCount" : "%1$@ participants",
+
+"continueCount" : "继续（%1$@）",
+"numberOfDayCount" : "剩余%1$@天",
+"participantCount" : "%1$@ 名成员",
+"participantCountCount" : "%1$@ 名成员",
+}
 ```
 
 
