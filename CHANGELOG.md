@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.1]
+
+-  Use ellipsis … for Android, ... for iOS
+
 ## [0.4.0]
 
 - Support generate Flutter platform strings
