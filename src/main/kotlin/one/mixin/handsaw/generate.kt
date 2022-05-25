@@ -159,6 +159,7 @@ class IOSGenerator(
     keyEnValMap: MutableMap<String, String>?
   ): String {
     val index = parseResult.langList.indexOf(lang)
+    val enIndex = parseResult.langList.indexOf("en")
     val data = parseResult.dataList
     val platformMap = parseResult.platformMap
     val result = StringBuilder()
@@ -169,6 +170,12 @@ class IOSGenerator(
       var value: String
       try {
         value = v[index]
+
+        if (value.isBlank()) {
+          // use en value if current value is empty
+          value = v[enIndex]
+        }
+
         if ("\"" in value) {
           value = value.replace("\"", "\\\"")
         }
@@ -264,7 +271,7 @@ class FlutterGenerator : Generator {
 
       val newMap = mutableMapOf<String, String>()
 
-      originalMap.forEach {
+      originalMap.forEach inner@{
         val value = it.value.let { _value ->
           var value = _value
           (androidPlaceHolder.findAll(value) + iosPlaceHolder.findAll(value)).forEachIndexed { index, matchResult ->
@@ -275,14 +282,14 @@ class FlutterGenerator : Generator {
           value.trim()
         }
 
-        if (value.isBlank()) return@forEach
+        if (value.isBlank()) return@inner
 
         if (it.key.endsWith(".count")) {
           val key = it.key.substringBeforeLast(".count").toCamelCase()
           val one = newMap[key]
 
           newMap[key] = "{count, plural, one{${one}} other{${value}}}"
-          return@forEach
+          return@inner
         }
 
         val key = it.key.toCamelCase().let { key ->
