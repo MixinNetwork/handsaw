@@ -11,6 +11,9 @@ interface Generator {
 val androidPlaceHolder = "%[\\d]+[\$][d|s]".toRegex()
 val iosPlaceHolder = "%@".toRegex()
 
+private const val dot3 = "..."
+private const val ellipsis = "…"
+
 class AndroidGenerator : Generator {
   override fun generate(parseResult: ParseResult, outputFile: String?) {
     val path = if (outputFile.isNullOrBlank()) {
@@ -56,20 +59,14 @@ class AndroidGenerator : Generator {
       val platform = platformMap[k]
       if (platform == null || !validPlatform(platform)) return@forEach
 
-      var value: String
-      try {
-        value = v[index]
-        if ("\'" in value) {
-          value = value.replace("\'", "\\\'")
-        }
-        if ("\"" in value) {
-          value = value.replace("\"", "\\\"")
-        }
-        if ("&" in value) {
-          value = value.replace("&", "&amp;")
-        }
+      val value: String = try {
+        v[index]
+          .replace("\'", "\\\'")
+          .replace("\"", "\\\"")
+          .replace("&", "&amp;")
+          .replace(dot3, ellipsis)
       } catch (e: IndexOutOfBoundsException) {
-        value = ""
+        ""
       }
       if (value.isBlank()) {
         // skip if value is empty
@@ -176,9 +173,8 @@ class IOSGenerator(
           value = v[enIndex]
         }
 
-        if ("\"" in value) {
-          value = value.replace("\"", "\\\"")
-        }
+        value = value.replace("\"", "\\\"")
+          .replace(ellipsis, dot3)
 
         val phCount = androidPlaceHolder.findAll(value).count()
         value = value.replace(androidPlaceHolder) { r ->
