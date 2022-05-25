@@ -70,6 +70,9 @@ it will generate following files:
 general platform placeholders use format like `%1$s` `%2$d`, it will generate platform specific placeholders, for example: `%@` `%d` for iOS etc.
 special platform can use its own placeholders, for example: iOS use `%@` `%d`, Android use `%1$s` `%2$d`, etc.
 
+#### non-en empty value
+iOS platform uses en values to place empty values, other platforms leave them empty.
+
 #### iOS key-type
 iOS platform support parameter key-type, default value is 0, which means use the xlsx key as the key, 1 means use the English column as the key.
 ```
