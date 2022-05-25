@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.0]
+
+- Support generate Flutter platform strings
+- iOS platform use en value to place empty value
+
 ## [0.3.0]
 
 - modify parse platform
