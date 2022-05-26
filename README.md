@@ -119,11 +119,12 @@ will generate following strings for Android:
 <plurals name="number_of_day" tools:ignore="UnusedQuantity">
   <item quantity="other">剩余%1$d天</item>
 </plurals>
-<plurals name="participant_count">
+<plurals name="participant_count" tools:ignore="UnusedQuantity">
   <item quantity="one">%1$d 名成员</item>
   <item quantity="other">%1$d 名成员</item>
 </plurals>
 ```
+Android only 'en' value NOT use tools:ignore="UnusedQuantity" for now, see [plural list](https://github.com/MixinNetwork/handsaw/blob/main/src/main/kotlin/one/mixin/handsaw/generate.kt#L18)
 
 following strings for iOS:
 ```
