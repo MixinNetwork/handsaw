@@ -1,5 +1,6 @@
 package one.mixin.handsaw
 
+import org.junit.Assert
 import org.junit.Test
 
 class GeneratorTest {
@@ -20,5 +21,19 @@ class GeneratorTest {
 
     val flutterGenerator = FlutterGenerator()
     flutterGenerator.generate(parseResult, null)
+  }
+
+  @Test
+  fun `test strings with invalid char`() {
+    val parser = XLSXParser()
+    val parseResult = parser.parse("src/test/resources/exampleWithInvalidChar.xlsx")
+
+    val androidGenerator = AndroidGenerator()
+    try {
+      androidGenerator.generate(parseResult, null)
+    } catch (e: FormatException) {
+      return
+    }
+    Assert.fail("should throw FormatException!")
   }
 }

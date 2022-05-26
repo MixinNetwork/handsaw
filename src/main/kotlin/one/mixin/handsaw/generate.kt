@@ -11,12 +11,13 @@ interface Generator {
 private val androidPlaceHolder = "%[\\d]+[\$][d|s]".toRegex()
 private val iosPlaceHolder = "%@".toRegex()
 
-private val needPluralLangList = listOf("en")
-
 private const val dot3 = "..."
 private const val ellipsis = "…"
 
 class AndroidGenerator : Generator {
+  private val needPluralLangList = listOf("en")
+  private val invalidCharList = listOf('@')
+
   override fun generate(parseResult: ParseResult, outputFile: String?) {
     val path = if (outputFile.isNullOrBlank()) {
       System.getProperty("user.dir")
@@ -106,6 +107,10 @@ class AndroidGenerator : Generator {
         result.append("\t<string name=\"$k\">$value</string>\n")
       }
     }
+
+    if (invalidCharList.any { result.indexOf(it) >= 0 })
+      throw FormatException("Android generated strings contains invalid characters in $invalidCharList")
+
     return if (result.indexOf("tools:") < 0) {
       "<resources>\n$result</resources>"
     } else {
@@ -333,4 +338,6 @@ class FlutterGenerator : Generator {
 enum class KeyType {
   Default, EnValue
 }
+
+data class FormatException(val msg: String) : Exception(msg)
 
