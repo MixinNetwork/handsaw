@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.2]
+
+- improve generator for Android 
+
 ## [0.4.1]
 
 -  Use ellipsis … for Android, ... for iOS
