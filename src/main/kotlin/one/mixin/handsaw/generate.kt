@@ -8,8 +8,10 @@ interface Generator {
   fun validPlatform(platform: String): Boolean
 }
 
-val androidPlaceHolder = "%[\\d]+[\$][d|s]".toRegex()
-val iosPlaceHolder = "%@".toRegex()
+private val androidPlaceHolder = "%[\\d]+[\$][d|s]".toRegex()
+private val iosPlaceHolder = "%@".toRegex()
+
+private val needPluralLangList = listOf("en")
 
 private const val dot3 = "..."
 private const val ellipsis = "…"
@@ -84,12 +86,12 @@ class AndroidGenerator : Generator {
       } else if (k.endsWith(".count")) {
         val localPluralKey = k.substringBeforeLast(".count")
         val singleExists = data[localPluralKey]
-        if (singleExists != null && singleExists.isNotEmpty() && singleExists.getOrNull(
-            index
-          )?.isNotBlank() == true
+        if (singleExists != null &&
+          singleExists.isNotEmpty() &&
+          singleExists.getOrNull(index)?.isNotBlank() == true
         ) {
-          result.append("\t<plurals name=\"$localPluralKey\">\n")
-            .append("\t\t<item quantity=\"other\">$value</item>\n")
+          getPluralHead(result, localPluralKey, lang)
+          result.append("\t\t<item quantity=\"other\">$value</item>\n")
           pluralKey = localPluralKey
         } else {
           result.append("\t<plurals name=\"$localPluralKey\" tools:ignore=\"UnusedQuantity\">\n")
@@ -97,14 +99,31 @@ class AndroidGenerator : Generator {
             .append("\t</plurals>\n")
         }
       } else if (pluralKey == "" && data["$k.count"] != null) {
-        result.append("\t<plurals name=\"$k\">\n")
-          .append("\t\t<item quantity=\"one\">$value</item>\n")
+        getPluralHead(result, k, lang)
+        result.append("\t\t<item quantity=\"one\">$value</item>\n")
         pluralKey = k
       } else {
         result.append("\t<string name=\"$k\">$value</string>\n")
       }
     }
-    return "<resources xmlns:tools=\"http://schemas.android.com/tools\">\n$result</resources>"
+    return if (result.indexOf("tools:") < 0) {
+      "<resources>\n$result</resources>"
+    } else {
+      "<resources xmlns:tools=\"http://schemas.android.com/tools\">\n$result</resources>"
+    }
+  }
+
+  private fun getPluralHead(
+    result: StringBuilder,
+    localPluralKey: String,
+    lang: String
+  ) {
+    result.append("\t<plurals name=\"$localPluralKey\"")
+    if (needPluralLangList.containsIgnoreCase(lang)) {
+      result.append(">\n")
+    } else {
+      result.append(" tools:ignore=\"UnusedQuantity\">\n")
+    }
   }
 
   override fun validPlatform(platform: String): Boolean =
