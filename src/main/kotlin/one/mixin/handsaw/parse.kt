@@ -4,12 +4,19 @@ import com.github.ajalt.clikt.core.InvalidFileFormat
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.WorkbookFactory
+import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import java.io.File
 import java.io.FileInputStream
+import java.io.StringWriter
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.transform.OutputKeys
+import javax.xml.transform.Transformer
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 
 interface Parser {
   fun parse(path: String): ParseResult
@@ -128,7 +135,22 @@ class XMLParser : Parser {
       val name = element.getAttribute("name")
       val platform = element.getAttribute("platform")
       platformMap[name] = platform
-      val value = element.textContent
+
+      val childLen = element.childNodes.length
+      val value = if (childLen > 1) {
+        val sb = StringBuilder()
+        for (j in 0 until childLen) {
+          val childNode = element.childNodes.item(j)
+          if (childNode.nodeType == Node.ELEMENT_NODE) {
+            sb.append(getHTMLContent(dbf, childNode))
+          } else if (childNode.nodeType == Node.TEXT_NODE) {
+            sb.append(childNode.textContent)
+          }
+        }
+        sb.toString()
+      } else {
+        element.textContent
+      }
 
       val rowList = mutableListOf<String>()
       dataList[name] = rowList
@@ -164,6 +186,19 @@ class XMLParser : Parser {
     }
 
     return ParseResult(langList, dataList, platformMap)
+  }
+
+  private fun getHTMLContent(factory: DocumentBuilderFactory, item: Node): String {
+    val builder = factory.newDocumentBuilder()
+    val newDocument: Document = builder.newDocument()
+    val importedNode: Node = newDocument.importNode(item, true)
+    newDocument.appendChild(importedNode)
+    val transformer: Transformer = TransformerFactory.newInstance().newTransformer()
+    transformer.setOutputProperty(OutputKeys.METHOD, "html")
+    val result = StreamResult(StringWriter())
+    val source = DOMSource(newDocument)
+    transformer.transform(source, result)
+    return result.writer.toString()
   }
 }
 

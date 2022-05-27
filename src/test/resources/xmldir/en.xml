@@ -12,4 +12,5 @@
   <string name="participant_count.count" platform="android,ios,desktop">%1$d participants</string>
   <string name="Loading" platform="android,ios,desktop">Loading…</string>
   <string name="Preparing" platform="android,ios,desktop">Preparing…</string>
+  <string name="setting_battery_optimize_title_one_ui_above_s" platform="android">This will improve reliability for incoming notifications and Telegram calls. Please select <b>Optimised</b> or <b>Unrestricted</b> in Settings > Battery.</string>
 </resources>
