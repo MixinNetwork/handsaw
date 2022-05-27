@@ -23,8 +23,9 @@ Commands:
   read  Read i18n strings from specify platform
 ```
 
-### Generate from xlsx file
+### Generate from XLSX file or XML directory
 
+#### XLSX file
 maintain a xlsx file with the following structure:
 
 |platform|keys|en|zh|ja|ms|
@@ -38,6 +39,31 @@ run command below to generate i18n strings:
 ```
 $ handsaw gen -i ~/Downloads/client.xlsx -o ~/Downloads/
 ```
+
+#### XML directory
+
+maintain a xml directory with the following structure:
+- dir
+    - en.xml
+    - zh.xml
+    - ja.xml
+    - ...
+
+each file contains a single language strings, e.g. en.xml, zh.xml, ja.xml, ...
+only en.xml need attribute `platform` to specify the platform, other files can be ignored.
+```xml
+<resources>
+    <string name="key1" platform="Android,iOS,Desktop">value1</string>
+    <string name="key2" platform="Android">value2</string>
+    <string name="key3" platform="iOS">value3</string>
+    <string name="key4" platform="Android,ios,Desktop">value4</string>
+</resources> 
+```
+run command below to generate i18n strings:
+```
+$ handsaw gen -i ~/Downloads/dir -o ~/Downloads/
+```
+
 
 it will generate following files:
 - output
