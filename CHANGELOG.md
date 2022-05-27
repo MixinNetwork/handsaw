@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.5.0]
+
+- Support parse xml directory
+
 ## [0.4.2]
 
 - improve generator for Android 
