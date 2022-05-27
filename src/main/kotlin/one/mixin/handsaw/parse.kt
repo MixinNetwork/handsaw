@@ -113,7 +113,28 @@ class XMLParser : Parser {
 
     val mutableFiles = files.toMutableList()
     val enFile = mutableFiles.removeAt(enIndex)
-    mutableFiles.add(0, enFile)
+    langList.add("en")
+    val enKv = mutableMapOf<String, String>()
+
+    val enDoc = dbf.newDocumentBuilder().parse(enFile)
+    enDoc.documentElement.normalize()
+
+    val enStringList = enDoc.getElementsByTagName("string")
+    for (i in 0 until enStringList.length) {
+      val node = enStringList.item(i)
+      if (node.nodeType != Node.ELEMENT_NODE) continue
+
+      val element = node as Element
+      val name = element.getAttribute("name")
+      val platform = element.getAttribute("platform")
+      platformMap[name] = platform
+      val value = element.textContent
+
+      val rowList = mutableListOf<String>()
+      dataList[name] = rowList
+      rowList.add(value)
+      enKv[name] = value
+    }
 
     mutableFiles.forEach { f ->
       val lang = f.nameWithoutExtension
@@ -123,25 +144,22 @@ class XMLParser : Parser {
       doc.documentElement.normalize()
 
       val stringList = doc.getElementsByTagName("string")
+      val kv = mutableMapOf<String, String>()
       for (i in 0 until stringList.length) {
         val node = stringList.item(i)
         if (node.nodeType != Node.ELEMENT_NODE) continue
 
         val element = node as Element
         val name = element.getAttribute("name")
-
-        if (lang == "en") {
-          val platform = element.getAttribute("platform")
-          platformMap[name] = platform
-        }
         val value = element.textContent
+        kv[name] = value
+      }
 
-        var rowList = dataList[name]
-        if (rowList == null) {
-          rowList = mutableListOf()
-          dataList[name] = rowList
-        }
-        rowList.add(value)
+      enKv.forEach en@{ k, _ ->
+        val rowList = dataList[k] ?: return@en
+
+        val curVal = kv[k]
+        rowList.add(if (curVal.isNullOrBlank()) "" else curVal)
       }
     }
 
