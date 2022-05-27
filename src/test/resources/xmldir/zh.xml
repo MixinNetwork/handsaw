@@ -1,0 +1,14 @@
+<resources>
+  <string name="error_old_version" platform="android,ios">错误 %1$d：请更新 Mixin(%2$s) 至最新版。</string>
+  <string name="error_too_many_request" platform="android,ios">错误 %1$d：请求过于频繁</string>
+  <string name="end_to_end_encryption_tip" platform="android">此通话已由端对端加密进行保护。除了参与通话的人，其他人包含 Mixin 在内都无法听取或查看。</string>
+  <string name="wallet_transaction_tip" platform="ios">你已经在 %1$s 给 %2$s 转账了 %3$d，确认还要再转一次吗？</string>
+  <string name="web_cannot_reached_desc" platform="desktop">无法访问 %1$s，请检查你的网络并尝试切换 4G、Wi-Fi 或 VPN 后重新载入页面。</string>
+  <string name="continue_count" platform="android,ios,desktop">继续（%1$s）</string>
+  <string name="continue.count" platform="android,ios,desktop">继续（%1$s）</string>
+  <string name="number_of_day.count" platform="android,ios,desktop">剩余%1$d天</string>
+  <string name="participant_count" platform="android,ios,desktop">>%1$d 名成员</string>
+  <string name="participant_count.count" platform="android,ios,desktop">>%1$d 名成员</string>
+  <string name="Loading" platform="android,ios,desktop">加载中…</string>
+  <string name="Preparing" platform="android,ios,desktop">准备中…</string>
+</resources>

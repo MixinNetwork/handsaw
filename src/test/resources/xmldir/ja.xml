@@ -1,0 +1,4 @@
+<resources>
+  <string name="error_old_version" platform="android,ios">エラー %1$d: このサービスを引き続き使用するには、Mixin(%2$s)をアップデートしてください。</string>
+  <string name="error_too_many_request" platform="android,ios">エラー %1$d: レート制限を超過しています</string>
+</resources>

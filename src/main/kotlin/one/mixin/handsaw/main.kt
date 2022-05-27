@@ -8,6 +8,7 @@ import com.github.ajalt.clikt.parameters.options.help
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.int
+import java.io.File
 
 fun main(vararg args: String) {
   NoOpCliktCommand(name = "handsaw")
@@ -17,11 +18,11 @@ fun main(vararg args: String) {
 
 private class GenerateCommand : CliktCommand(
   name = "gen",
-  help = "Generate i18n strings from other sources, xlsx file only for now"
+  help = "Generate i18n strings from other sources, XLSX file and XML directory are supported"
 ) {
   private val inputFile by option("-i", "--input")
     .required()
-    .help("Xlsx file only now, sqlite database file will be supported in future")
+    .help("XLSX file and XML directory are supported")
 
   private val output by option("-o", "--output")
     .help("Specify a directory to save the generated result")
@@ -35,7 +36,7 @@ private class GenerateCommand : CliktCommand(
     .default(0)
 
   override fun run() {
-    val parser = XLSXParser()
+    val parser = getParser(File(inputFile))
     val parseResult = parser.parse(inputFile)
 
     if (platform.isNullOrBlank()) {
@@ -44,11 +45,11 @@ private class GenerateCommand : CliktCommand(
         generator.generate(parseResult, output)
       }
     } else {
-      val generator = if (platform.equals("Android", true)) {
+      val generator = if (platform.equals(Platform.Android.toString(), true)) {
         AndroidGenerator()
-      } else if (platform.equals("iOS", true)) {
+      } else if (platform.equals(Platform.IOS.toString(), true)) {
         getIOSGenerator(keyType)
-      } else if (platform.equals("Flutter", true)) {
+      } else if (platform.equals(Platform.Desktop.toString(), true)) {
         FlutterGenerator()
       } else {
         throw IllegalArgumentException("Unsupported platform: $platform")

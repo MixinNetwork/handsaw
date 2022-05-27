@@ -1,0 +1,15 @@
+<resources>
+  <string name="error_old_version" platform="android,ios">ERROR %1$d: Please update Mixin(%2$s) to continue use the service.</string>
+  <string name="error_too_many_request" platform="android,ios">ERROR %1$d: Rate limit exceeded</string>
+  <string name="end_to_end_encryption_tip" platform="android">This call is secured with end-to-end encryption. No one outside of this call can view or listen to it. Not even Mixin.</string>
+  <string name="wallet_transaction_tip" platform="ios">You have already transferred %3$d to %2$s %1$s. Do you want to transfer it again?</string>
+  <string name="web_cannot_reached_desc" platform="desktop">%1$s took too long to respond. Please check your network and try to switch 4G, Wi-Fi or VPN to reload the page.</string>
+  <string name="continue_count" platform="android,ios,desktop">Continue(%1$s)</string>
+  <string name="continue.count" platform="android,ios,desktop">Continue(%1$s)</string>
+  <string name="number_of_day.count" platform="android,ios,desktop">%1$d days remaining</string>
+  <string name="number_of_day" platform="android,ios,desktop">one day remaining</string>
+  <string name="participant_count" platform="android,ios,desktop">%1$d participant</string>
+  <string name="participant_count.count" platform="android,ios,desktop">%1$d participants</string>
+  <string name="Loading" platform="android,ios,desktop">Loading…</string>
+  <string name="Preparing" platform="android,ios,desktop">Preparing…</string>
+</resources>

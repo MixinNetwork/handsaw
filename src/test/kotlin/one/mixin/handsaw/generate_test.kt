@@ -7,8 +7,11 @@ class GeneratorTest {
 
   @Test
   fun `test generate`() {
-    val parser = XLSXParser()
-    val parseResult = parser.parse("src/test/resources/example.xlsx")
+    // val parser = XLSXParser()
+    // val parseResult = parser.parse("src/test/resources/example.xlsx")
+
+    val parser = XMLParser()
+    val parseResult = parser.parse("src/test/resources/xmldir")
 
     val androidGenerator = AndroidGenerator()
     androidGenerator.generate(parseResult, null)

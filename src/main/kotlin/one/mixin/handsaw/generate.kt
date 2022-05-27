@@ -256,8 +256,9 @@ class FlutterGenerator : Generator {
     }
 
     val langData = parseResult.langList.groupBy({ it }, { lang ->
-      validDataList.map {
-        it.key to it.value[parseResult.langList.indexOf(lang)]
+      validDataList.mapNotNull {
+        val v = it.value.getOrNull(parseResult.langList.indexOf(lang)) ?: return@mapNotNull null
+        it.key to v
       }.toMap()
     }).map {
       it.key to it.value.first()
