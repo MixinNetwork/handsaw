@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.5.1]
+
+- fix Android check invalid strings
+
 ## [0.5.0]
 
 - Support parse xml directory
