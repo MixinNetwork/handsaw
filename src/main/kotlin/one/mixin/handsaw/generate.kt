@@ -16,7 +16,7 @@ private const val ellipsis = "…"
 
 class AndroidGenerator : Generator {
   private val needPluralLangList = listOf("en")
-  private val invalidCharList = listOf('@')
+  private val invalidStringList = listOf("%@")
 
   override fun generate(parseResult: ParseResult, outputFile: String?) {
     val path = if (outputFile.isNullOrBlank()) {
@@ -108,8 +108,8 @@ class AndroidGenerator : Generator {
       }
     }
 
-    if (invalidCharList.any { result.indexOf(it) >= 0 })
-      throw FormatException("Android generated strings contains invalid characters in $invalidCharList")
+    if (invalidStringList.any { result.indexOf(it) >= 0 })
+      throw FormatException("Android generated strings contains invalid characters in $invalidStringList")
 
     return if (result.indexOf("tools:") < 0) {
       "<resources>\n$result</resources>"
