@@ -10,7 +10,7 @@ import org.w3c.dom.Node
 import java.io.File
 import java.io.FileInputStream
 import java.io.StringWriter
-import java.util.TreeMap
+import java.text.Collator
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.transform.OutputKeys
@@ -28,7 +28,7 @@ class XLSXParser : Parser {
     val sheet = readFromXLSXFile(path)
 
     var langList = mutableListOf<String>()
-    val dataList = TreeMap<String, MutableList<String>>(String.CASE_INSENSITIVE_ORDER)
+    val dataList = sortedMapOf<String, MutableList<String>>(Collator.getInstance())
     val platformMap = mutableMapOf<String, String>()
 
     val firstRow = sheet.getRow(0) ?: throw InvalidFileFormat(path, "The xlsx file has no row")
@@ -116,7 +116,7 @@ class XMLParser : Parser {
     }
 
     val langList = mutableListOf<String>()
-    val dataList = TreeMap<String, MutableList<String>>(String.CASE_INSENSITIVE_ORDER)
+    val dataList = sortedMapOf<String, MutableList<String>>(Collator.getInstance())
     val platformMap = mutableMapOf<String, String>()
 
     val mutableFiles = files.toMutableList()
