@@ -91,6 +91,8 @@ it will generate following files:
       - intl_en.arb
       - intl_ja.arb
       - intl_zh.arb
+      
+every file sorted by keys according `a-z case-insensitive`.
 
 #### placeholders
 general platform placeholders use format like `%1$s` `%2$d`, it will generate platform specific placeholders, for example: `%@` `%d` for iOS etc.
