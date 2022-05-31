@@ -211,7 +211,7 @@ data class ParseResult(
 
 fun getParser(file: File): Parser = if (file.isDirectory) {
   XMLParser()
-} else if (file.isFile && file.nameWithoutExtension == "xlsx") {
+} else if (file.isFile && file.extension == "xlsx") {
   XLSXParser()
 } else {
   throw ParseException("No supported parser for file ${file.name}")
