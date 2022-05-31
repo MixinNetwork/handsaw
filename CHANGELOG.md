@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.5.2]
+
+- sort parse result by key according a-z case-insensitive
+
 ## [0.5.1]
 
 - fix Android check invalid strings
