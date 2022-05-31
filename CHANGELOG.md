@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.5.3]
+
+- fix sorted map comparator usage
+
 ## [0.5.2]
 
 - sort parse result by key according a-z case-insensitive
