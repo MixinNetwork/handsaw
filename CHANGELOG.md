@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.5.4]
+
+- Android platform keep '**' in the value
+
 ## [0.5.3]
 
 - fix sorted map comparator usage
