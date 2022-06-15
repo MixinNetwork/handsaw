@@ -107,6 +107,9 @@ iOS platform support parameter key-type, default value is 0, which means use the
 $ handsaw gen -k 1
 ```
 
+#### Android star tag
+Android platform keep '**' in the value, other platforms remove it.
+
 #### plural case
 if you want generate plural format like:
 ```xml

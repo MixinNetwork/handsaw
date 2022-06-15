@@ -13,6 +13,7 @@ private val iosPlaceHolder = "%@".toRegex()
 
 private const val dot3 = "..."
 private const val ellipsis = "…"
+private const val twoStar = "**"
 
 class AndroidGenerator : Generator {
   private val needPluralLangList = listOf("en")
@@ -198,6 +199,7 @@ class IOSGenerator(
         }
 
         value = value.replace("\"", "\\\"")
+          .replace(twoStar, "")
           .replace(ellipsis, dot3)
 
         val phCount = androidPlaceHolder.findAll(value).count()
@@ -299,6 +301,7 @@ class FlutterGenerator : Generator {
             value = value.replace(matchResult.value, "{arg$index}")
           }
           value.replace("\n", "\n")
+            .replace(twoStar, "")
 
           value.trim()
         }

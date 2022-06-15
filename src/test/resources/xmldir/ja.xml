@@ -1,4 +1,5 @@
 <resources>
   <string name="error_old_version" platform="android,ios">エラー %1$d: このサービスを引き続き使用するには、Mixin(%2$s)をアップデートしてください。</string>
   <string name="error_too_many_request" platform="android,ios">エラー %1$d: レート制限を超過しています</string>
+  <string name="wallet_pin_tops_desc">PINコードを忘れた場合、ウォレットにアクセスすることができなくなるため、必ず覚えておいてください。PINコードは、分散型キー導出プロトコルであるThrottled Identity Protocolから作成されています。**詳しくは**ドキュメントをご覧ください。</string>
 </resources>
