@@ -1,0 +1,8 @@
+<resources>
+  <string name="continue_count">繼續 (%1$d) </string>
+  <string name="continue">繼續 (%1$d)</string>
+  <string name="continue.count">繼續 (%1$d)</string>
+  <string name="error_old_version">錯誤 10006：請更新 Mixin(%1$s) 以繼續使用該服務。</string>
+  <string name="error_too_many_request">錯誤 429：超出速率限制</string>
+  <string name="wallet_pin_tops_desc">請記住，PIN 丟失後將無法恢復。PIN 基於 Throttled Identity Protocol，它是分散的密鑰派生協議，閱讀文檔以 **瞭解更多**。</string>
+</resources>

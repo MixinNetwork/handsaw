@@ -82,7 +82,8 @@ class AndroidGenerator : Generator {
           .append("\t</plurals>\n")
         pluralKey = ""
       } else if ("$pluralKey.count" == k) {
-        result.append("\t\t<item quantity=\"other\">$value</item>\n")
+        result.appendRu(value, lang)
+          .append("\t\t<item quantity=\"other\">$value</item>\n")
           .append("\t</plurals>\n")
         pluralKey = ""
       } else if (k.endsWith(".count")) {
@@ -93,10 +94,12 @@ class AndroidGenerator : Generator {
           singleExists.getOrNull(index)?.isNotBlank() == true
         ) {
           getPluralHead(result, localPluralKey, lang)
-          result.append("\t\t<item quantity=\"other\">$value</item>\n")
+          result.appendRu(value, lang)
+            .append("\t\t<item quantity=\"other\">$value</item>\n")
           pluralKey = localPluralKey
         } else {
           result.append("\t<plurals name=\"$localPluralKey\" tools:ignore=\"UnusedQuantity\">\n")
+            .appendRu(value, lang)
             .append("\t\t<item quantity=\"other\">$value</item>\n")
             .append("\t</plurals>\n")
         }
@@ -131,6 +134,14 @@ class AndroidGenerator : Generator {
       result.append(" tools:ignore=\"UnusedQuantity\">\n")
     }
   }
+
+  private fun StringBuilder.appendRu(
+    value: String,
+    lang: String,
+  ): StringBuilder = if (lang.equals("ru", true)) {
+    append("\t\t<item quantity=\"few\">$value</item>\n")
+      .append("\t\t<item quantity=\"many\">$value</item>\n")
+  } else this
 
   override fun validPlatform(platform: String): Boolean =
     platform.split(',').containsIgnoreCase(Platform.Android.toString())

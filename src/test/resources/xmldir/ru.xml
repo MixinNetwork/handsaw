@@ -1,0 +1,7 @@
+<resources>
+  <string name="error_old_version" platform="android,ios">ОШИБКА 10006: Обновите Mixin(%1$s), чтобы продолжить использование сервиса.</string>
+  <string name="continue_count" platform="android,ios,desktop">Продолжить (%1$d)</string>
+  <string name="continue.count" platform="android,ios,desktop">Продолжить (%1$d)</string>
+  <string name="participant_count" platform="android,ios,desktop">%1$d участник</string>
+  <string name="participant_count.count" platform="android,ios,desktop">%1$d участников</string>
+</resources>
