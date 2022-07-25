@@ -98,7 +98,7 @@ class XLSXParser : Parser {
   }
 }
 
-private val iSORegex = "[A-Za-z]{2}".toRegex()
+private val iSORegex = "^[a-z]{2}(-[A-Z]{2})?\$".toRegex()
 
 class XMLParser : Parser {
   override fun parse(path: String): ParseResult {
