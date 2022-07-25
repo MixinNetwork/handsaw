@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.5.6]
+
+- fix Russian quantity
+
 ## [0.5.5]
 
 - fix iso regex
