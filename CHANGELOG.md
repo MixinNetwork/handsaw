@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.5.5]
+
+- fix iso regex
+
 ## [0.5.4]
 
 - Android platform keep '**' in the value
