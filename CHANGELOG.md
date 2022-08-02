@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.5.7]
+- add platform iOSAuthentication and AppStore
+
 ## [0.5.6]
 
 - fix Russian quantity
