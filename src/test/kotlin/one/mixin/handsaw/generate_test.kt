@@ -19,7 +19,7 @@ class GeneratorTest {
     var iOSGenerator = IOSGenerator(Platform.IOS)
     iOSGenerator.generate(parseResult, null)
 
-    iOSGenerator = IOSGenerator(Platform.IOSAuthentication)
+    iOSGenerator = IOSGenerator(Platform.IOSAuthorization)
     iOSGenerator.generate(parseResult, null)
 
     iOSGenerator = IOSGenerator(Platform.AppStore)

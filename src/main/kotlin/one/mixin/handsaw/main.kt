@@ -49,8 +49,8 @@ private class GenerateCommand : CliktCommand(
         AndroidGenerator()
       } else if (platform.equals(Platform.IOS.toString(), true)) {
         getIOSGenerator(Platform.IOS, keyType)
-      } else if (platform.equals(Platform.IOSAuthentication.toString(), true)) {
-        getIOSGenerator(Platform.IOSAuthentication, keyType)
+      } else if (platform.equals(Platform.IOSAuthorization.toString(), true)) {
+        getIOSGenerator(Platform.IOSAuthorization, keyType)
       } else if (platform.equals(Platform.AppStore.toString(), true)) {
         getIOSGenerator(Platform.AppStore, keyType)
       } else if (platform.equals(Platform.Desktop.toString(), true)) {
@@ -72,7 +72,7 @@ private class GenerateCommand : CliktCommand(
 
   private fun getIOSGenerators(keyType: Int): Array<IOSGenerator> = arrayOf(
     getIOSGenerator(Platform.IOS, keyType),
-    getIOSGenerator(Platform.IOSAuthentication, keyType),
+    getIOSGenerator(Platform.IOSAuthorization, keyType),
     getIOSGenerator(Platform.AppStore, keyType),
   )
 }

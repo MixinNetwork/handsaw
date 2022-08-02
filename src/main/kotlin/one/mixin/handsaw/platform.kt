@@ -4,7 +4,7 @@ sealed class Platform {
     object Android : Platform()
     object IOS : Platform()
     object Desktop: Platform()
-    object IOSAuthentication: Platform()
+    object IOSAuthorization: Platform()
     object AppStore: Platform()
 
     override fun toString(): String =
@@ -12,7 +12,7 @@ sealed class Platform {
             Android -> "Android"
             IOS -> "iOS"
             Desktop -> "Desktop"
-            IOSAuthentication -> "iOSAuthentication"
+            IOSAuthorization -> "iOSAuthorization"
             AppStore -> "AppStore"
         }
 }
