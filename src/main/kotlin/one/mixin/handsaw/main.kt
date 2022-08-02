@@ -40,7 +40,7 @@ private class GenerateCommand : CliktCommand(
     val parseResult = parser.parse(inputFile)
 
     if (platform.isNullOrBlank()) {
-      val allGenerators = listOf(AndroidGenerator(), getIOSGenerator(keyType), FlutterGenerator())
+      val allGenerators = listOf(AndroidGenerator(), *getIOSGenerators(keyType), FlutterGenerator())
       allGenerators.forEach { generator ->
         generator.generate(parseResult, output)
       }
@@ -48,7 +48,11 @@ private class GenerateCommand : CliktCommand(
       val generator = if (platform.equals(Platform.Android.toString(), true)) {
         AndroidGenerator()
       } else if (platform.equals(Platform.IOS.toString(), true)) {
-        getIOSGenerator(keyType)
+        getIOSGenerator(Platform.IOS, keyType)
+      } else if (platform.equals(Platform.IOSAuthentication.toString(), true)) {
+        getIOSGenerator(Platform.IOSAuthentication, keyType)
+      } else if (platform.equals(Platform.AppStore.toString(), true)) {
+        getIOSGenerator(Platform.AppStore, keyType)
       } else if (platform.equals(Platform.Desktop.toString(), true)) {
         FlutterGenerator()
       } else {
@@ -58,13 +62,19 @@ private class GenerateCommand : CliktCommand(
     }
   }
 
-  private fun getIOSGenerator(keyType: Int): IOSGenerator {
+  private fun getIOSGenerator(platform: Platform, keyType: Int): IOSGenerator {
     return if (keyType != 0) {
-      IOSGenerator(KeyType.EnValue)
+      IOSGenerator(platform, KeyType.EnValue)
     } else {
-      IOSGenerator()
+      IOSGenerator(platform)
     }
   }
+
+  private fun getIOSGenerators(keyType: Int): Array<IOSGenerator> = arrayOf(
+    getIOSGenerator(Platform.IOS, keyType),
+    getIOSGenerator(Platform.IOSAuthentication, keyType),
+    getIOSGenerator(Platform.AppStore, keyType),
+  )
 }
 
 private class ReadCommand : CliktCommand(

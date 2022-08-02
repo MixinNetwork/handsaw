@@ -4,4 +4,8 @@
   <string name="continue.count" platform="android,ios,desktop">Продолжить (%1$d)</string>
   <string name="participant_count" platform="android,ios,desktop">%1$d участник</string>
   <string name="participant_count.count" platform="android,ios,desktop">%1$d участников</string>
+
+  <!-- should ignore -->
+  <string name="number_of_day" platform="android,ios,desktop">день</string>
+  <string name="number_of_day.count" platform="android,ios,desktop">дни</string>
 </resources>

@@ -16,7 +16,13 @@ class GeneratorTest {
     val androidGenerator = AndroidGenerator()
     androidGenerator.generate(parseResult, null)
 
-    val iOSGenerator = IOSGenerator()
+    var iOSGenerator = IOSGenerator(Platform.IOS)
+    iOSGenerator.generate(parseResult, null)
+
+    iOSGenerator = IOSGenerator(Platform.IOSAuthentication)
+    iOSGenerator.generate(parseResult, null)
+
+    iOSGenerator = IOSGenerator(Platform.AppStore)
     iOSGenerator.generate(parseResult, null)
 
     // val iOSGeneratorEn = IOSGenerator(KeyType.EnValue)

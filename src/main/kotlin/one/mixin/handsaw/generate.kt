@@ -77,6 +77,10 @@ class AndroidGenerator : Generator {
         return@forEach
       }
 
+      if (lang.equals("ru", true) && androidPlaceHolder.findAll(value).count() < 1) {
+        return@forEach
+      }
+
       if (pluralKey == k) {
         result.append("\t\t<item quantity=\"one\">$value</item>\n")
           .append("\t</plurals>\n")
@@ -148,7 +152,8 @@ class AndroidGenerator : Generator {
 }
 
 class IOSGenerator(
-  private val keyType: KeyType = KeyType.Default
+  private val platform: Platform = Platform.IOS,
+  private val keyType: KeyType = KeyType.Default,
 ) : Generator {
   override fun generate(parseResult: ParseResult, outputFile: String?) {
     val path = if (outputFile.isNullOrBlank()) {
@@ -156,7 +161,7 @@ class IOSGenerator(
     } else {
       outputFile
     }
-    val outDir = File("$path${File.separator}output${File.separator}iOS")
+    val outDir = File("$path${File.separator}output${File.separator}$platform")
     if (outDir.exists()) {
       outDir.delete()
     }
@@ -257,7 +262,7 @@ class IOSGenerator(
   }
 
   override fun validPlatform(platform: String): Boolean =
-    platform.split(',').containsIgnoreCase(Platform.IOS.toString())
+    platform.split(',').containsIgnoreCase(this.platform.toString())
 }
 
 class FlutterGenerator : Generator {

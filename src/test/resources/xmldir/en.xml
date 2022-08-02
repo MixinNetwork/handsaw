@@ -14,4 +14,6 @@
   <string name="Preparing" platform="android,ios,desktop">Preparing…</string>
   <string name="setting_battery_optimize_title_one_ui_above_s" platform="android">This will improve reliability for incoming notifications and Telegram calls. Please select <b>Optimised</b> or <b>Unrestricted</b> in Settings > Battery.</string>
   <string name="wallet_pin_tops_desc" platform="android,ios">Please remember the PIN is unrecoverable if lost. The PIN is based on the Throttled Identity Protocol, which is the decentralized key derivation protocol, read the document to **learn more**.</string>
+  <string name="test_ios_authentication" platform="iosAuthentication">test iOS authentication</string>
+  <string name="test_app_store" platform="appStore">test iOS AppStore</string>
 </resources>
