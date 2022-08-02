@@ -1,7 +1,7 @@
 # Changelog
 
-## [0.5.7]
-- add platform iOSAuthentication and AppStore
+## [0.5.8]
+- add platform iOSAuthorization and AppStore
 
 ## [0.5.6]
 
