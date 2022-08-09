@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.5.9]
+- fix redundant check for ru
+
 ## [0.5.8]
 - add platform iOSAuthorization and AppStore
 
