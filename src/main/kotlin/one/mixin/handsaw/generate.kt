@@ -77,10 +77,6 @@ class AndroidGenerator : Generator {
         return@forEach
       }
 
-      if (lang.equals("ru", true) && androidPlaceHolder.findAll(value).count() < 1) {
-        return@forEach
-      }
-
       if (pluralKey == k) {
         result.append("\t\t<item quantity=\"one\">$value</item>\n")
           .append("\t</plurals>\n")
