@@ -223,7 +223,7 @@ class IOSGenerator(
               r.value
             }
           } else {
-            val remain = r.value.drop(3)
+            val remain = r.value.drop(r.value.length - 1)
             if (remain.last() == 's') {
               remain.dropLast(1).plus("%@")
             } else {

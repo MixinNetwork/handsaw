@@ -12,4 +12,5 @@
   <string name="Loading" platform="android,ios,desktop">加载中…</string>
   <string name="Preparing" platform="android,ios,desktop">准备中…</string>
   <string name="wallet_pin_tops_desc">注意 PIN 丢失无法找回，6 位数字 PIN 是基于去中心化密钥派生协议 Throttled Identity Protocol，阅读文档以**了解更多**。</string>
+  <string name="Hour" platform="android,ios,desktop">%d 小时</string>
 </resources>
