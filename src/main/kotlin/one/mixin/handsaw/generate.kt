@@ -8,7 +8,7 @@ interface Generator {
   fun validPlatform(platform: String): Boolean
 }
 
-private val androidPlaceHolder = "%[\\d]+[\$][d|s]".toRegex()
+private val androidPlaceHolder = "%([\\d]+[\$])*[d|s]".toRegex()
 private val iosPlaceHolder = "%@".toRegex()
 
 private const val dot3 = "..."
