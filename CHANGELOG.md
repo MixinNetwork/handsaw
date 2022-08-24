@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.5.10]
+- update android placeholder to support '%d'
+
 ## [0.5.9]
 - fix redundant check for ru
 
