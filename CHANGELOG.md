@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.5.11]
+- auto add/remove whitespace for Chinese
+
 ## [0.5.10]
 - update android placeholder to support '%d'
 

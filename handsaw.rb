@@ -2,8 +2,8 @@ class Handsaw < Formula
     desc "A tool for generating i18n strings for multiple platforms"
     homepage "https://github.com/MixinNetwork/handsaw"
     url "https://github.com/MixinNetwork/handsaw/releases/download/0.5.10/handsaw.zip"
-    version "0.5.10"
-    sha256 "22c88af7e980842389b686e31edcd7060f670fa367b1e5637029895afb08d240"
+    version "0.5.11"
+    sha256 "10376dcecf35ff1dee0a22f356f2b42ce3226203dac3cc1e802c8da5368c9e51"
 
     depends_on "openjdk"
 
