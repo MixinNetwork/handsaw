@@ -3,14 +3,13 @@ package one.mixin.handsaw
 import net.pearx.kasechange.toCamelCase
 import java.io.File
 
-@Suppress("RegExpSimplifiable")
-val androidPlaceHolder = "%([\\d]+[\$])*[d|s]".toRegex()
-val iosPlaceHolder = "%@".toRegex()
-
 interface Generator {
   fun generate(parseResult: ParseResult, outputFile: String?)
   fun validPlatform(platform: String): Boolean
 }
+
+private val androidPlaceHolder = "%([\\d]+[\$])*[d|s]".toRegex()
+private val iosPlaceHolder = "%@".toRegex()
 
 private const val dot3 = "..."
 private const val ellipsis = "…"
@@ -70,7 +69,6 @@ class AndroidGenerator : Generator {
           .replace("\"", "\\\"")
           .replace("&", "&amp;")
           .replace(dot3, ellipsis)
-          .handleZHWhiteSpace(lang)
       } catch (e: IndexOutOfBoundsException) {
         ""
       }
@@ -91,7 +89,8 @@ class AndroidGenerator : Generator {
       } else if (k.endsWith(".count")) {
         val localPluralKey = k.substringBeforeLast(".count")
         val singleExists = data[localPluralKey]
-        if (!singleExists.isNullOrEmpty() &&
+        if (singleExists != null &&
+          singleExists.isNotEmpty() &&
           singleExists.getOrNull(index)?.isNotBlank() == true
         ) {
           getPluralHead(result, localPluralKey, lang)
@@ -214,7 +213,6 @@ class IOSGenerator(
         value = value.replace("\"", "\\\"")
           .replace(twoStar, "")
           .replace(ellipsis, dot3)
-          .handleZHWhiteSpace(lang)
 
         val phCount = androidPlaceHolder.findAll(value).count()
         value = value.replace(androidPlaceHolder) { r ->
@@ -309,8 +307,8 @@ class FlutterGenerator : Generator {
       val newMap = mutableMapOf<String, String>()
 
       originalMap.forEach inner@{
-        val value = it.value.let { v ->
-          var value = v
+        val value = it.value.let { _value ->
+          var value = _value
           (androidPlaceHolder.findAll(value) + iosPlaceHolder.findAll(value)).forEachIndexed { index, matchResult ->
             value = value.replace(matchResult.value, "{arg$index}")
           }
@@ -358,11 +356,4 @@ enum class KeyType {
 }
 
 data class FormatException(val msg: String) : Exception(msg)
-
-private fun String.handleZHWhiteSpace(lang: String): String {
-  if (!lang.startsWith("zh", true)) return this
-
-  return this.joinWithCharacter()
-}
-
 
