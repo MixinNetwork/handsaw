@@ -324,7 +324,7 @@ class FlutterGenerator : Generator {
           val key = it.key.substringBeforeLast(".count").toCamelCase()
           val one = newMap[key]
 
-          newMap[key] = "{count, plural, one{1 ${one}} other{{count} ${value}}}"
+          newMap[key] = "{count, plural, one{${one}} other{${value}}}"
           return@inner
         }
 
