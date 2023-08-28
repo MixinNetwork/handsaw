@@ -79,6 +79,12 @@ class AndroidGenerator : Generator {
         return@forEach
       }
 
+      if (invalidStringList.any {
+          value.indexOf(it) >= 0
+        }) {
+        throw FormatException("Android generated strings($k) contains invalid characters in $invalidStringList.")
+      }
+
       if (pluralKey == k) {
         result.append("\t\t<item quantity=\"one\">$value</item>\n")
           .append("\t</plurals>\n")
@@ -112,17 +118,6 @@ class AndroidGenerator : Generator {
       } else {
         result.append("\t<string name=\"$k\">$value</string>\n")
       }
-    }
-
-    var wrongInfo = ""
-    if (invalidStringList.any {
-        val i = result.indexOf(it)
-        if(index >= 0) {
-            wrongInfo = result.substring(max(30, i - 30), min(i + 30, result.length - i + 30))
-        }
-        i >= 0
-    }) {
-      throw FormatException("Android generated strings contains invalid characters in $invalidStringList.\nwrongInfo: $wrongInfo")
     }
 
     return if (result.indexOf("tools:") < 0) {
