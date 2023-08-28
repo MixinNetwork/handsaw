@@ -1,4 +1,6 @@
 # Changelog
+## [0.5.13]
+- print FormatException wrong info
 
 ## [0.5.12]
 - revert 'auto add/remove whitespace for Chinese'
