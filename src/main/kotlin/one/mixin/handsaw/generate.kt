@@ -2,6 +2,8 @@ package one.mixin.handsaw
 
 import net.pearx.kasechange.toCamelCase
 import java.io.File
+import kotlin.math.max
+import kotlin.math.min
 
 interface Generator {
   fun generate(parseResult: ParseResult, outputFile: String?)
@@ -112,8 +114,16 @@ class AndroidGenerator : Generator {
       }
     }
 
-    if (invalidStringList.any { result.indexOf(it) >= 0 })
-      throw FormatException("Android generated strings contains invalid characters in $invalidStringList")
+    var wrongInfo = ""
+    if (invalidStringList.any {
+        val i = result.indexOf(it)
+        if(index >= 0) {
+            wrongInfo = result.substring(max(30, i - 30), min(i + 30, result.length - i + 30))
+        }
+        i >= 0
+    }) {
+      throw FormatException("Android generated strings contains invalid characters in $invalidStringList.\nwrongInfo: $wrongInfo")
+    }
 
     return if (result.indexOf("tools:") < 0) {
       "<resources>\n$result</resources>"
