@@ -317,9 +317,7 @@ class FlutterGenerator : Generator {
           (androidPlaceHolder.findAll(value) + iosPlaceHolder.findAll(value)).forEachIndexed { index, matchResult ->
             value = value.replace(matchResult.value, "{arg$index}")
           }
-          value.replace("\n", "\n")
-            .replace(twoStar, "")
-
+          value = value.replace("\"", "\\\"")
           value.trim()
         }
 
