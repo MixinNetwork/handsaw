@@ -1,4 +1,7 @@
 # Changelog
+## [0.5.15]
+- fix flutter generate string with double quotes
+
 ## [0.5.14]
 - print FormatException key
 
